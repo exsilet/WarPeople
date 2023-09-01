@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Inventory _inventory;
     [SerializeField] private Button _battle;
+    [SerializeField] private float _stopSecond;
 
     private const string Attack = "Attack";
     private const string Stand = "Stand";
@@ -52,11 +54,24 @@ public class Player : MonoBehaviour
 
     private void AttackPlayer()
     {
+        StartCoroutine(PlaySkill());
+        
+        // foreach (SkillViewAttack data in _inventory._skillViewAttack)
+        // {
+        //     ChoiceAttack(data);
+        //     Debug.Log("war");
+        // }
+    }
+
+    private IEnumerator PlaySkill()
+    {
         foreach (SkillViewAttack data in _inventory._skillViewAttack)
         {
+            yield return new WaitForSeconds(_stopSecond);
             ChoiceAttack(data);
             Debug.Log("war");
         }
+        
     }
 
     private void ChoiceAttack(SkillViewAttack data)

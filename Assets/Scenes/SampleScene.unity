@@ -4207,6 +4207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventory: {fileID: 52558842}
   _battle: {fileID: 1551747421}
+  _stopSecond: 2
 --- !u!212 &1540137702
 SpriteRenderer:
   m_ObjectHideFlags: 0
