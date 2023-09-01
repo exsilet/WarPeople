@@ -79,10 +79,4 @@ public class SkillView : MonoBehaviour
         _addSkill.interactable = _currentCount != 0;
         _countText.text = _currentCount.ToString();
     }
-
-    private void IconCounter(int count)
-    {
-        for (int i = 0; i < count; i++)
-            _emptyIcon[i].overrideSprite = _fillIcon;
-    }
 }
