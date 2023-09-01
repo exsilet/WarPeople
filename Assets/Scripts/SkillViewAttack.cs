@@ -22,20 +22,9 @@ public class SkillViewAttack : MonoBehaviour
         _removeSkill.onClick.AddListener(OnClick);
     }
 
-    private void OnDisable()
-    {
-        _removeSkill.onClick.RemoveListener(OnClick);
-    }
-
-    public void Show()
-    {
-        _shirt.gameObject.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        _shirt.gameObject.SetActive(false);
-    }
+    private void OnDisable() => _removeSkill.onClick.RemoveListener(OnClick);
+    public void Show() => _shirt.gameObject.SetActive(true);
+    public void Hide() => _shirt.gameObject.SetActive(false);
 
     public void Initialize(SkillStaticData skillStaticData)
     {
@@ -53,18 +42,8 @@ public class SkillViewAttack : MonoBehaviour
         _skillStaticData = null;
     }
 
-    public void RemoveAttack()
-    {
-        _removeSkill.interactable = false;
-    }
-
-    public void SetInitialized()
-    {
-        _isInitialized = !_isInitialized;
-    }
-
-    private void OnClick()
-    {
-        RemoveSkillsButton?.Invoke(_skillStaticData, this);
-    }
+    public void RemoveAttack() => _removeSkill.interactable = false;
+    public void UpAttack() => _removeSkill.interactable = true;
+    public void SetInitialized() => _isInitialized = !_isInitialized;
+    private void OnClick() => RemoveSkillsButton?.Invoke(_skillStaticData, this);
 }

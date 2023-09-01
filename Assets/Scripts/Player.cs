@@ -2,15 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private Inventory _inventory;
-    [SerializeField] private Button _battle;
     [SerializeField] private float _stopSecond;
     [SerializeField] private float _hidePlayed;
+    [SerializeField] private SkillsPanel _skillsPanel;
 
     private const string Attack = "Attack";
     private const string Stand = "Stand";
@@ -18,6 +17,7 @@ public class Player : MonoBehaviour
     private const string Dodge = "Dodge";
     private const string StrongAttack = "StrongAttack";
     private const string Recharge = "Recharge";
+    private const string StopAnimation = "StopAnimation";
     private Animator _animator;
     private bool _isInitialized;
     private List<SkillViewAttack> _viewAttacks = new();
@@ -27,31 +27,18 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    private void OnEnable()
-    {
-        _battle.onClick.AddListener(AttackSkill);
-    }
-
-    private void OnDisable() =>
-        _battle.onClick.RemoveListener(AttackSkill);
-
-    private void AttackSkill()
+    public void AttackSkill()
     {
         foreach (SkillViewAttack data in _inventory._skillViewAttack)
         {
             _viewAttacks.Add(data);
         }
-
+        
+        _skillsPanel.NoActivePanel();
         _animator.SetTrigger(Stand);
         
         AttackPlayer();
     }
-
-    private void Hit() => _animator.SetTrigger(Attack);
-    private void DefenceAnimation() => _animator.SetTrigger(Protection);
-    private void EvasionAnimation() => _animator.SetTrigger(Dodge);
-    private void SuperAttackAnimation() => _animator.SetTrigger(StrongAttack);
-    private void CounterstrikeAnimation() => _animator.SetTrigger(Recharge);
 
     private void AttackPlayer()
     {
@@ -74,8 +61,24 @@ public class Player : MonoBehaviour
             data.RemoveAttack();
             Debug.Log("war");
         }
-        
+
+        OnEnd();
     }
+
+    private void OnEnd()
+    {
+        StopCoroutine(PlaySkill());
+        _animator.SetTrigger(StopAnimation);
+        _inventory.RemoveWarPlayer();
+        _viewAttacks.Clear();
+        _skillsPanel.ActivePanel();
+    }
+    
+    private void Hit() => _animator.SetTrigger(Attack);
+    private void DefenceAnimation() => _animator.SetTrigger(Protection);
+    private void EvasionAnimation() => _animator.SetTrigger(Dodge);
+    private void SuperAttackAnimation() => _animator.SetTrigger(StrongAttack);
+    private void CounterstrikeAnimation() => _animator.SetTrigger(Recharge);
 
     private void ChoiceAttack(SkillViewAttack data)
     {

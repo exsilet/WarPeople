@@ -6,13 +6,14 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField] private SkillsPanel _skillsPanel;
     [SerializeField] private Image _icon;
+    [SerializeField] private TimerStart _timer;
     [SerializeField] private List<SkillViewAttack> _skillViewsAttackPrefabs;
 
     private int _maxCount = 10;
     private int _countSkill;
     private bool _isStarted;
     private List<SkillStaticData> _skillsList;
-    public List<SkillViewAttack> _skillViewAttack = new();
+    protected internal List<SkillViewAttack> _skillViewAttack = new();
 
     private void Start()
     {
@@ -58,18 +59,14 @@ public class Inventory : MonoBehaviour
         if (_isStarted == false)
             return;
 
-        foreach (SkillViewAttack view in _skillViewsAttackPrefabs)
-        {
+        foreach (SkillViewAttack view in _skillViewsAttackPrefabs) 
             view.RemoveSkillsButton += RemoveSkills;
-        }
     }
 
     private void OnDisable()
     {
-        foreach (SkillViewAttack view in _skillViewsAttackPrefabs)
-        {
+        foreach (SkillViewAttack view in _skillViewsAttackPrefabs) 
             view.RemoveSkillsButton -= RemoveSkills;
-        }
     }
 
     private void RemoveSkills(SkillStaticData data, SkillViewAttack view)
@@ -80,10 +77,18 @@ public class Inventory : MonoBehaviour
         _skillViewAttack.Remove(view);
     }
 
-    public void RemoveWarPlayer(SkillStaticData data, SkillViewAttack view)
+    public void RemoveWarPlayer()
     {
-        _skillsPanel.AddCountSkill(view, data);
-        _skillsList.Remove(data);
-        _skillViewAttack.Remove(view);
+        foreach (SkillViewAttack view in _skillViewsAttackPrefabs)
+        {
+            _skillsPanel.AddCountSkill(view, view.SkillStaticData);
+            _skillsList.Remove(view.SkillStaticData);
+            _skillViewAttack.Remove(view);
+            view.RemoveSkill();
+            view.UpAttack();
+            view.Show();
+        }
+        
+        _timer.StartBattle();
     }
 }
