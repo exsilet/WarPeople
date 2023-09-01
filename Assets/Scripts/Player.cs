@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Inventory _inventory;
     [SerializeField] private Button _battle;
     [SerializeField] private float _stopSecond;
+    [SerializeField] private float _hidePlayed;
 
     private const string Attack = "Attack";
     private const string Stand = "Stand";
@@ -54,13 +55,12 @@ public class Player : MonoBehaviour
 
     private void AttackPlayer()
     {
-        StartCoroutine(PlaySkill());
+        foreach (SkillViewAttack data in _inventory._skillViewAttack)
+        {
+            data.Show();
+        }
         
-        // foreach (SkillViewAttack data in _inventory._skillViewAttack)
-        // {
-        //     ChoiceAttack(data);
-        //     Debug.Log("war");
-        // }
+        StartCoroutine(PlaySkill());
     }
 
     private IEnumerator PlaySkill()
@@ -69,6 +69,9 @@ public class Player : MonoBehaviour
         {
             yield return new WaitForSeconds(_stopSecond);
             ChoiceAttack(data);
+            data.Hide();
+            yield return new WaitForSeconds(_hidePlayed);
+            data.RemoveAttack();
             Debug.Log("war");
         }
         

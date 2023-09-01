@@ -29,6 +29,7 @@ public class Inventory : MonoBehaviour
             if (_skillViewsAttackPrefabs[i].Initialized == false)
             {
                 _skillsList.Insert(i, staticData);
+                _skillViewsAttackPrefabs[i].Hide();
                 _skillViewsAttackPrefabs[i].SetInitialized();
                 AddAttackSkill(i);
                 break;

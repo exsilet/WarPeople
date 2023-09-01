@@ -45,8 +45,7 @@ public class SkillView : MonoBehaviour
         _skillStaticData.CountLimit = skillStaticData.CountLimit;
         _currentCount = skillStaticData.Count;
         _countText.text = _currentCount.ToString();
-
-        //IconCounter(skillStaticData.CountLimit);
+        
         _isInitialized = true;
         OnEnable();
     }
