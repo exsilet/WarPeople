@@ -8,6 +8,7 @@ public class TimerStart : MonoBehaviour
     [SerializeField] private float _timerStart;
     [SerializeField] private TMP_Text _textTimer;
     [SerializeField] private Player _player;
+    [SerializeField] private Player _secondPlayer;
 
     private float _timer;
     
@@ -15,7 +16,7 @@ public class TimerStart : MonoBehaviour
     {
         _timer = _timerStart;
         _textTimer.text = _textTimer.ToString();
-        StartCoroutine(StartTime());
+        //StartCoroutine(StartTime());
     }
 
     public void StartBattle()
@@ -31,7 +32,7 @@ public class TimerStart : MonoBehaviour
             _textTimer.text = $"{_timerStart/60}";
             _textTimer.text = _timerStart.ToString(CultureInfo.CurrentCulture);
             _timerStart--;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.2f);
         }
 
         OnEnd();
@@ -41,5 +42,6 @@ public class TimerStart : MonoBehaviour
     {
         StopCoroutine(StartTime());
         _player.AttackSkill();
+        _secondPlayer.AttackSkill();
     }
 }
