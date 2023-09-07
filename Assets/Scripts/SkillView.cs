@@ -1,5 +1,5 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
+using UIExtensions;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -18,11 +18,6 @@ public class SkillView : MonoBehaviour
     public int CurrentCount => _currentCount;
     public SkillStaticData SkillStaticData => _skillStaticData;
     public event UnityAction<SkillStaticData, SkillView> AddSkillsButton;
-
-    private void Update()
-    {
-        //InteractiveSkill();
-    }
 
     public void CountSkill()
     {
@@ -56,6 +51,7 @@ public class SkillView : MonoBehaviour
         {
             _currentCount += 1;
             _countText.text = _currentCount.ToString();
+            StopBattle();
         }
     }
     
@@ -67,9 +63,9 @@ public class SkillView : MonoBehaviour
         if (_isInitialized == false)
             return;
 
-        _addSkill.onClick.AddListener(OnClick);
+        _addSkill.Add(OnClick);
     }
 
-    private void OnDisable() => _addSkill.onClick.RemoveListener(OnClick);
+    private void OnDisable() => _addSkill.Remove(OnClick);
     private void OnClick() => AddSkillsButton?.Invoke(_skillStaticData, this);
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UIExtensions;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -19,12 +20,12 @@ public class SkillViewAttack : MonoBehaviour
         if (_isInitialized == false)
             return;
 
-        _removeSkill.onClick.AddListener(OnClick);
+        _removeSkill.Add(OnClick);
     }
 
-    private void OnDisable() => _removeSkill.onClick.RemoveListener(OnClick);
-    public void Show() => _shirt.gameObject.SetActive(true);
-    public void Hide() => _shirt.gameObject.SetActive(false);
+    private void OnDisable() => _removeSkill.Remove(OnClick);
+    public void Show() => _shirt.Activate();
+    public void Hide() => _shirt.Deactivate();
 
     public void Initialize(SkillStaticData skillStaticData)
     {
@@ -40,6 +41,7 @@ public class SkillViewAttack : MonoBehaviour
         _icon.sprite = null;
         _isInitialized = false;
         _skillStaticData = null;
+        Show();
     }
 
     public void RemoveAttack() => _removeSkill.interactable = false;
