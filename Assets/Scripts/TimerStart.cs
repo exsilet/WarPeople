@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Globalization;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
-public class TimerStart : MonoBehaviour
+public class TimerStart : MonoBehaviour, IPunObservable
 {
     [SerializeField] private float _timerStart;
     [SerializeField] private TMP_Text _textTimer;
@@ -19,6 +20,18 @@ public class TimerStart : MonoBehaviour
         //StartCoroutine(StartTime());
     }
 
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting && PhotonNetwork.IsMasterClient)
+        {
+            stream.SendNext(_timerStart);
+        }else 
+        if (stream.IsReading)
+        {
+            _timerStart = (float)stream.ReceiveNext();
+        }
+    }
+
     public void StartBattle()
     {
         _timerStart = _timer;
@@ -32,7 +45,7 @@ public class TimerStart : MonoBehaviour
             _textTimer.text = $"{_timerStart/60}";
             _textTimer.text = _timerStart.ToString(CultureInfo.CurrentCulture);
             _timerStart--;
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(1.1f);
         }
 
         OnEnd();

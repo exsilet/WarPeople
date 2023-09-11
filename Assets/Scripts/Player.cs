@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour
         _viewAttacks.Clear();
         _skillsPanel.ActivePanel();
     }
-    
+
     private void Hit() => _animator.SetTrigger(Attack);
     private void DefenceAnimation() => _animator.SetTrigger(Protection);
     private void EvasionAnimation() => _animator.SetTrigger(Dodge);
