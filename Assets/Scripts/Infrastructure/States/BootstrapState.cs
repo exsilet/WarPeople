@@ -35,6 +35,7 @@ namespace Infrastructure.States
 
         private void RegisterServices()
         {
+            _services.RegisterSingle<IGameStateMachine>(_stateMachine);
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>()));
         }
