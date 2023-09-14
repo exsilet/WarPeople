@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Globalization;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace MultiPlayer
 {
