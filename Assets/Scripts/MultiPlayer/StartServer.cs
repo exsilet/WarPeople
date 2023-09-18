@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections;
+using Infrastructure.LevelLogic;
+using Infrastructure.Services;
+using Infrastructure.States;
 using Photon.Pun;
 using Photon.Realtime;
+using StaticData;
 using TMPro;
 using UnityEngine;
 
@@ -15,9 +19,12 @@ namespace MultiPlayer
         [SerializeField] private float _timerStart;
         [SerializeField] private TMP_Text _textTimer;
         [SerializeField] private GameObject _panel;
-
+        [SerializeField] private PlayerStaticData _playerStaticData;
+        
         private string _playerName;
+        private IGameStateMachine _stateMachine;
         private const string GameScene = "GameScene";
+        private PlayerStaticData _staticData;
 
         private void Start()
         {
@@ -27,6 +34,7 @@ namespace MultiPlayer
         private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
+            _stateMachine = AllServices.Container.Single<IGameStateMachine>();
         }
 
         private void ConnectToPhotonServer()
@@ -51,6 +59,8 @@ namespace MultiPlayer
 
         public void QuickMatch()
         {
+            //откуда-то получить ИД персонажа
+            _staticData = _playerStaticData;
             PhotonNetwork.JoinRandomRoom();
         }
 
@@ -84,6 +94,8 @@ namespace MultiPlayer
         public override void OnJoinedRoom()
         {
             Debug.Log("Connected to room");
+            // PhotonNetwork.LoadLevel(GameScene);
+            // _stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData);
             StartCoroutine(ActivePlayer());
         }
 
@@ -110,6 +122,7 @@ namespace MultiPlayer
         {
             StopCoroutine(ActivePlayer());
             PhotonNetwork.LoadLevel(GameScene);
+            _stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData);
         }
     }
 }

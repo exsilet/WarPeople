@@ -2,6 +2,7 @@
 using Infrastructure.Factory;
 using Infrastructure.LevelLogic;
 using Infrastructure.Services;
+using StaticData;
 
 namespace Infrastructure.States
 {
@@ -35,9 +36,18 @@ namespace Infrastructure.States
 
         private void RegisterServices()
         {
+            RegisterStaticData();
+            
             _services.RegisterSingle<IGameStateMachine>(_stateMachine);
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
-            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>()));
+            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>(), _services.Single<IStaticDataService>()));
+        }
+        
+        private void RegisterStaticData()
+        {
+            IStaticDataService staticData = new StaticDataService();
+            staticData.Load();
+            _services.RegisterSingle(staticData);
         }
     }
 }

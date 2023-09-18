@@ -4,6 +4,7 @@ using Infrastructure.Factory;
 using Infrastructure.LevelLogic;
 using Infrastructure.Services;
 using Logic;
+using StaticData;
 
 namespace Infrastructure.States
 {
@@ -18,6 +19,8 @@ namespace Infrastructure.States
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
                 [typeof(LoadMenuState)] = new LoadMenuState(this, sceneLoader, curtain, services.Single<IGameFactory>()),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, curtain, services.Single<IGameFactory>(), 
+                    services.Single<IStaticDataService>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }
@@ -32,6 +35,12 @@ namespace Infrastructure.States
         {
             TState state = ChangeState<TState>();
             state.Enter(payload);
+        }
+
+        public void Enter<TState, TPayload>(TPayload payload1, PlayerStaticData payload2) where TState : class, IPayloadedState1<TPayload, PlayerStaticData>
+        {
+            TState state = ChangeState<TState>();
+            state.EnterTwoParameters(payload1, payload2);
         }
 
         private TState ChangeState<TState>() where TState : class, IExitableState

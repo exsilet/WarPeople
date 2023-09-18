@@ -30,7 +30,7 @@ namespace Infrastructure.LevelLogic
 
         private void OnLoaded()
         {
-            _gameFactory.CreateHub();
+            _gameFactory.CreateHubMenu();
             _stateMachine.Enter<GameLoopState>();
         }
     }

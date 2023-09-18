@@ -1,4 +1,5 @@
-﻿using UIExtensions;
+﻿using StaticData;
+using UIExtensions;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;

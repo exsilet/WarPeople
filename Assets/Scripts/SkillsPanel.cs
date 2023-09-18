@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using StaticData;
 using UnityEngine;
 
 public class SkillsPanel : MonoBehaviour
@@ -10,6 +11,11 @@ public class SkillsPanel : MonoBehaviour
     private List<SkillView> _skillViews = new();
     private bool _isStarted;
     private SkillView _skillView;
+
+    public void Construct(Inventory inventory)
+    {
+        _inventory = inventory;
+    }
 
     private void Start()
     {

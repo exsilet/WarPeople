@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 namespace Infrastructure.AssetManagement
 {
@@ -14,6 +15,12 @@ namespace Infrastructure.AssetManagement
         {
             var prefab = Resources.Load<GameObject>(path);
             return Object.Instantiate(prefab, at, Quaternion.identity);
+        }
+        
+        public GameObject InstantiatePhoton(string path, Vector3 at)
+        {
+            var prefab = Resources.Load<GameObject>(path);
+            return PhotonNetwork.Instantiate(prefab.name, at, Quaternion.identity);
         }
     }
 }

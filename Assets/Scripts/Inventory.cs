@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using StaticData;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,11 @@ public class Inventory : MonoBehaviour
     private bool _isStarted;
     private List<SkillStaticData> _skillsList;
     protected internal List<SkillViewAttack> _skillViewAttack = new();
+
+    public void Construct(SkillsPanel skillsPanel)
+    {
+        _skillsPanel = skillsPanel;
+    }
 
     private void Start()
     {

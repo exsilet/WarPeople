@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using StaticData;
+using TMPro;
 using UIExtensions;
 using UnityEngine;
 using UnityEngine.Events;

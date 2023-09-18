@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using StaticData;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -21,6 +22,11 @@ public class Player : MonoBehaviour
     private Animator _animator;
     private bool _isInitialized;
     private List<SkillViewAttack> _viewAttacks = new();
+
+    public void Construct(SkillsPanel skillsPanel)
+    {
+        _skillsPanel = skillsPanel;
+    }
 
     private void Start()
     {
@@ -75,9 +81,13 @@ public class Player : MonoBehaviour
     }
 
     private void Hit() => _animator.SetTrigger(Attack);
+
     private void DefenceAnimation() => _animator.SetTrigger(Protection);
+
     private void EvasionAnimation() => _animator.SetTrigger(Dodge);
+
     private void SuperAttackAnimation() => _animator.SetTrigger(StrongAttack);
+
     private void CounterstrikeAnimation() => _animator.SetTrigger(Recharge);
 
     private void ChoiceAttack(SkillViewAttack data)
