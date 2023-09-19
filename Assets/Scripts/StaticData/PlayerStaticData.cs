@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace StaticData
 {
@@ -6,5 +7,7 @@ namespace StaticData
     public class PlayerStaticData : ScriptableObject
     {
         public PlayerTypeId PlayerTypeId;
+        public Animator Animator;
+        public Image Icon;
     }
 }

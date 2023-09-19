@@ -510,25 +510,25 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Attack
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Stand
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Protection
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Dodge
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: StrongAttack
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Recharge
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: StopAnimation
   m_SynchronizeLayers:
   - SynchronizeType: 1
@@ -548,7 +548,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 0
+  m_UseLocal: 1
 --- !u!1 &4897469384235902092
 GameObject:
   m_ObjectHideFlags: 0

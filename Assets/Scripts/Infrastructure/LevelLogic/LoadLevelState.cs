@@ -2,6 +2,7 @@
 using Infrastructure.Factory;
 using Infrastructure.States;
 using Logic;
+using Photon.Pun;
 using StaticData;
 using UnityEngine;
 
@@ -50,7 +51,7 @@ namespace Infrastructure.LevelLogic
 
         private void CreateHeroWorld(PlayerStaticData typeID)
         {
-            Debug.Log( typeID + " create data players");
+            Debug.Log(typeID + " create data players");
             GameObject hero = _gameFactory.CreateHero(typeID.PlayerTypeId);
             GameObject hud = _gameFactory.CreateHudBattle();
 

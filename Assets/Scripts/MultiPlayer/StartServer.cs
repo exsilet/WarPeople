@@ -112,7 +112,7 @@ namespace MultiPlayer
 
         private void SearchTime()
         {
-            _panel.gameObject.SetActive(true);
+            _panel.SetActive(true);
             _timerStart += Time.deltaTime;
             TimeSpan time = TimeSpan.FromSeconds(_timerStart);
             _textTimer.text = time.Minutes.ToString("00") + ":" + time.Seconds.ToString("00");

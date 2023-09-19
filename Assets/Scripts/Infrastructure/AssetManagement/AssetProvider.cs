@@ -16,11 +16,12 @@ namespace Infrastructure.AssetManagement
             var prefab = Resources.Load<GameObject>(path);
             return Object.Instantiate(prefab, at, Quaternion.identity);
         }
-        
-        public GameObject InstantiatePhoton(string path, Vector3 at)
+
+        public GameObject InstantiatePhoton(string path, string pathPosition)
         {
             var prefab = Resources.Load<GameObject>(path);
-            return PhotonNetwork.Instantiate(prefab.name, at, Quaternion.identity);
+            var prefabPosition = Resources.Load<GameObject>(pathPosition);
+            return PhotonNetwork.Instantiate(prefab.name, prefabPosition.transform.position, Quaternion.identity);
         }
     }
 }

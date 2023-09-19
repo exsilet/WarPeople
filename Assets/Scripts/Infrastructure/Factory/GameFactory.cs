@@ -25,34 +25,33 @@ namespace Infrastructure.Factory
         public GameObject CreateHero(PlayerTypeId typeId)
         {
             Debug.Log(typeId + " Gamefactory data player");
-            
-            if (PlayerManager.LocalPlayerInstance == null)
+
+            if (PhotonNetwork.IsMasterClient)
             {
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    var hero = CreatePhotonHero(typeId, AssetPath.Spawner, AssetPath.HeroPath);
-                    return hero;
-                }
-                else
-                {
-                    var hero = CreatePhotonHero(typeId, AssetPath.Spawner1, AssetPath.SecondPlayerPath);
-                    return hero;
-                }
+                GameObject hero = CreatePhotonHero(typeId, AssetPath.HeroPath, AssetPath.Spawner);
+                return hero;
             }
             else
             {
-                return null;
+                GameObject hero = CreatePhotonHero(typeId, AssetPath.SecondPlayerPath, AssetPath.Spawner1);
+                return hero;
             }
 
+            return null;
             // RegisterProgressWatchers(hero);
         }
 
-        private GameObject CreatePhotonHero(PlayerTypeId typeId, string spawnerPlayer, string namePlayer)
+        private GameObject CreatePhotonHero(PlayerTypeId typeId, string namePlayer, string spawnerPlayer)
         {
             PlayerStaticData heroData = _staticData.ForPlayer(typeId);
-            SpawnPoint spawner = InstantiateRegistered(spawnerPlayer).GetComponent<SpawnPoint>();
-            spawner.Construct(this);
-            return _assets.InstantiatePhoton(namePlayer, spawner.gameObject.transform.position);
+            GameObject heroPhoton = _assets.InstantiatePhoton(namePlayer, spawnerPlayer);
+            
+            // Animator heroAnimation = heroPhoton.GetComponent<Animator>();
+            // //heroAnimation = heroData.Animator;
+            // Sprite iconPlayer = heroPhoton.GetComponent<SpriteRenderer>().sprite;
+            // iconPlayer = heroData.Icon.sprite;
+
+            return heroPhoton;
         }
         
         private GameObject InstantiateRegistered(string prefabPath)
