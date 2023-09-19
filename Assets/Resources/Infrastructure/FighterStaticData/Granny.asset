@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ccdc744aa64fd478cd825c289e8a61, type: 3}
+  m_Name: Granny
+  m_EditorClassIdentifier: 
+  _fighterIcon: {fileID: 21300000, guid: 61046c7ece98c79448ed9228f40e9d0c, type: 3}
+  _skillDatas:
+  - {fileID: 11400000, guid: 6d906e8fa4a6a284a9e01fed5e13f0c1, type: 2}
+  - {fileID: 11400000, guid: 7691d72387596c54bb6233bd46ae5bc7, type: 2}
+  - {fileID: 11400000, guid: 9a9b929c58407174fa6b94fc008a8b3c, type: 2}
+  - {fileID: 11400000, guid: 073cad0f59c8d544691be5278cd822af, type: 2}
+  - {fileID: 11400000, guid: b1650931e6c50074bb2dad1c772bca3c, type: 2}
+  - {fileID: 11400000, guid: 56b1df801e1214546a713aab611afeae, type: 2}
