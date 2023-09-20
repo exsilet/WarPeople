@@ -7,10 +7,11 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Inventory _inventory;
     [SerializeField] private float _stopSecond;
     [SerializeField] private float _hidePlayed;
-    [SerializeField] private SkillsPanel _skillsPanel;
+    
+    private Inventory _inventory;
+    private SkillsPanel _skillsPanel;
 
     private const string Attack = "Attack";
     private const string Stand = "Stand";
@@ -23,9 +24,10 @@ public class Player : MonoBehaviour
     private bool _isInitialized;
     private List<SkillViewAttack> _viewAttacks = new();
 
-    public void Construct(SkillsPanel skillsPanel)
+    public void Construct(SkillsPanel skillsPanel, Inventory inventory)
     {
         _skillsPanel = skillsPanel;
+        _inventory = inventory;
     }
 
     private void Start()

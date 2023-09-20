@@ -29,11 +29,19 @@ namespace Infrastructure.Factory
             if (PhotonNetwork.IsMasterClient)
             {
                 GameObject hero = CreatePhotonHero(typeId, AssetPath.HeroPath, AssetPath.Spawner);
+                var hud = CreateHudBattlePlayer1();
+                hero.GetComponent<Player>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
+                    hud.GetComponentInChildren<Inventory>());
+                
                 return hero;
             }
             else
             {
                 GameObject hero = CreatePhotonHero(typeId, AssetPath.SecondPlayerPath, AssetPath.Spawner1);
+                var hud = CreateHudBattle();
+                hero.GetComponent<Player>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
+                    hud.GetComponentInChildren<Inventory>());
+                
                 return hero;
             }
 
@@ -60,11 +68,18 @@ namespace Infrastructure.Factory
 
             return gameObject;
         }
+        
+        public GameObject CreateHudBattlePlayer1()
+        {
+            GameObject hud = _assets.Instantiate(AssetPath.HudBattlePlayer1Path);
+            
+            return hud;
+        }
 
         public GameObject CreateHudBattle()
         {
-            GameObject hud = _assets.Instantiate(AssetPath.HudBattlePath);
-
+            GameObject hud = _assets.Instantiate(AssetPath.HudBattlePlayer2Path);
+            
             return hud;
         }
     }

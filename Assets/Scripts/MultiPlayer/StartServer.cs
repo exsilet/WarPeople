@@ -76,6 +76,7 @@ namespace MultiPlayer
                 PhotonNetwork.LocalPlayer.NickName = _playerName;
                 RoomOptions roomOptions = new RoomOptions()
                 {
+                    CleanupCacheOnLeave = false,
                     MaxPlayers = _maxPlayer
                 };
 
@@ -121,7 +122,7 @@ namespace MultiPlayer
         private void OnEnd()
         {
             StopCoroutine(ActivePlayer());
-            PhotonNetwork.LoadLevel(GameScene);
+            //PhotonNetwork.LoadLevel(GameScene);
             _stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData);
         }
     }

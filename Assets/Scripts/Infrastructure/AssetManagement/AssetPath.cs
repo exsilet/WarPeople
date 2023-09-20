@@ -3,7 +3,8 @@
     public static class AssetPath
     {
         public const string HudPath = "Hud/HudMenu";
-        public const string HudBattlePath = "Hud/HudBattle";
+        public const string HudBattlePlayer1Path = "Hud/HudBattlePlayer1";
+        public const string HudBattlePlayer2Path = "Hud/HudBattlePlayer2";
         public const string HeroPath = "Player";
         public const string SecondPlayerPath = "SecondPlayer";
         public const string Spawner = "SpawnPoints/SpawnPoint";
