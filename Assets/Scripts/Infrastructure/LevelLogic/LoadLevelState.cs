@@ -52,18 +52,8 @@ namespace Infrastructure.LevelLogic
         private void CreateHeroWorld(PlayerStaticData typeID)
         {
             Debug.Log(typeID + " create data players");
+            
             GameObject hero = _gameFactory.CreateHero(typeID.PlayerTypeId);
-            GameObject hud = _gameFactory.CreateHudBattle();
-
-            hero.GetComponent<Player>().Construct(hud.GetComponentInChildren<SkillsPanel>());
-            hero.GetComponentInChildren<Inventory>().Construct(hud.GetComponentInChildren<SkillsPanel>());
-
-            InitHud(hud, hero);
-        }
-
-        private static void InitHud(GameObject hud, GameObject hero)
-        {
-            hud.GetComponentInChildren<SkillsPanel>().Construct(hero.GetComponentInChildren<Inventory>());
         }
     }
 }

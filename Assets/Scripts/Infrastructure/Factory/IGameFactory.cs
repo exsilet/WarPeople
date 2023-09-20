@@ -9,6 +9,7 @@ namespace Infrastructure.Factory
         void CreateHubMenu();
         GameObject CreateHero(PlayerTypeId typeId);
         GameObject CreateHudBattle();
+        GameObject CreateHudBattlePlayer1();
         //void CreateSpawner(string spawnerId, Vector3 at, PlayerTypeId playerId);
     }
 }
