@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SkillsPanel : MonoBehaviour
 {
-    [SerializeField] private List<SkillStaticData> _skills;
     [SerializeField] private List<SkillView> _skillViewsPrefabs;
     [SerializeField] private Inventory _inventory;
 
+    private List<SkillStaticData> _skills = new();
     private List<SkillView> _skillViews = new();
     private bool _isStarted;
     private SkillView _skillView;
@@ -27,6 +27,11 @@ public class SkillsPanel : MonoBehaviour
 
         _isStarted = true;
         OnEnable();
+    }
+
+    public void AddPlayerSkills(SkillStaticData staticData)
+    {
+        _skills.Add(staticData);
     }
 
     public void NoActivePanel()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Assets.Scripts.Infrastructure.UI.Menu;
 using Infrastructure.LevelLogic;
 using Infrastructure.Services;
 using Infrastructure.States;
@@ -19,8 +20,9 @@ namespace MultiPlayer
         [SerializeField] private float _timerStart;
         [SerializeField] private TMP_Text _textTimer;
         [SerializeField] private GameObject _panel;
-        [SerializeField] private PlayerStaticData _playerStaticData;
+        [SerializeField] private ChooseFighter _chooseFighter;
         
+        private PlayerStaticData _playerStaticData;
         private string _playerName;
         private IGameStateMachine _stateMachine;
         private const string GameScene = "GameScene";
@@ -29,6 +31,7 @@ namespace MultiPlayer
         private void Start()
         {
             ConnectToPhotonServer();
+            _playerStaticData = _chooseFighter.CurrentFighter;
         }
 
         private void Awake()
@@ -55,6 +58,10 @@ namespace MultiPlayer
         public void SetPlayerName()
         {
             _playerName = _playerNameText.text;
+        }
+        public void SetPlayerData(PlayerStaticData staticData)
+        {
+            _playerStaticData = staticData;
         }
 
         public void QuickMatch()
@@ -96,8 +103,8 @@ namespace MultiPlayer
         {
             Debug.Log("Connected to room");
             // PhotonNetwork.LoadLevel(GameScene);
-            // _stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData);
-            StartCoroutine(ActivePlayer());
+            _stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData);
+            //StartCoroutine(ActivePlayer());
         }
 
         private IEnumerator ActivePlayer()

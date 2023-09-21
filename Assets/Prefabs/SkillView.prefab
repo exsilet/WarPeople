@@ -325,7 +325,7 @@ RectTransform:
   - {fileID: 8908577528328297484}
   - {fileID: 1988000011423313135}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -430,11 +430,6 @@ MonoBehaviour:
   _description: {fileID: 7369564467187841646}
   _icon: {fileID: 5535876190945316465}
   _addSkill: {fileID: 4841149901998115851}
-  _emptyIcon:
-  - {fileID: 5011204671525158156}
-  - {fileID: 6316786087238917347}
-  - {fileID: 6097147352033497355}
-  _fillIcon: {fileID: 21300000, guid: 02c89c6a98b935e49a1a134d1dd9f684, type: 3}
   _countText: {fileID: 4099352815866534333}
 --- !u!1 &4841149902322641741
 GameObject:

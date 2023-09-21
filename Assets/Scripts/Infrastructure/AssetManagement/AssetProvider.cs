@@ -1,4 +1,7 @@
 ﻿using Photon.Pun;
+using StaticData;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Infrastructure.AssetManagement
@@ -22,6 +25,6 @@ namespace Infrastructure.AssetManagement
             var prefab = Resources.Load<GameObject>(path);
             var prefabPosition = Resources.Load<GameObject>(pathPosition);
             return PhotonNetwork.Instantiate(prefab.name, prefabPosition.transform.position, Quaternion.identity);
-        }
+        }        
     }
 }

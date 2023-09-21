@@ -15,7 +15,7 @@ namespace Infrastructure.LevelLogic
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
         private readonly IStaticDataService _staticData;
-        private PlayerStaticData _playerStatic;
+        private PlayerStaticData _playerData;
 
         public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
             IGameFactory gameFactory, IStaticDataService staticData)
@@ -27,11 +27,11 @@ namespace Infrastructure.LevelLogic
             _staticData = staticData;
         }
 
-        public void EnterTwoParameters(string sceneName, PlayerStaticData namePlayer)
+        public void EnterTwoParameters(string sceneName, PlayerStaticData playerData)
         {
             _loadingCurtain.Show();
-            _playerStatic = namePlayer;
-            Debug.Log(_playerStatic + " save data player");
+            _playerData = playerData;
+            Debug.Log(_playerData + " save data player");
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
@@ -46,14 +46,14 @@ namespace Infrastructure.LevelLogic
 
         private void InitGameWorld()
         {
-            CreateHeroWorld(_playerStatic);
+            CreateHeroWorld(_playerData);
         }
 
-        private void CreateHeroWorld(PlayerStaticData typeID)
+        private void CreateHeroWorld(PlayerStaticData playerData)
         {
-            Debug.Log(typeID + " create data players");
+            Debug.Log(playerData + " create data players");
             
-            GameObject hero = _gameFactory.CreateHero(typeID.PlayerTypeId);
+            GameObject hero = _gameFactory.CreateHero(playerData.PlayerTypeId, playerData);
         }
     }
 }

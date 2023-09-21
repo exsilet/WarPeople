@@ -2,9 +2,9 @@
 {
     public enum PlayerTypeId
     {
-        Grandmother,
-        Grandfather,
-        Rocker,
-        Bum,
+        Granny,
+        Hipster,
+        OfficeWorker,
+        HouseWife,
     }
 }

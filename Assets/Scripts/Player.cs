@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float _stopSecond;
     [SerializeField] private float _hidePlayed;
-    
+
+    private PlayerStaticData _playerData;
     private Inventory _inventory;
     private SkillsPanel _skillsPanel;
 
@@ -29,11 +30,14 @@ public class Player : MonoBehaviour
         _skillsPanel = skillsPanel;
         _inventory = inventory;
     }
-
+    
     private void Start()
-    {
+    {        
         _animator = GetComponent<Animator>();
     }
+    
+    public void SetPlayerData(PlayerStaticData staticData)
+        => _playerData = staticData;
 
     public void AttackSkill()
     {

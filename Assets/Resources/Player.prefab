@@ -124,6 +124,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stopSecond: 1.5
   _hidePlayed: 0.3
+  _sprite: {fileID: 21300000, guid: a0d2f9a1514cfc04791e6c422bb73c83, type: 3}
+  spriteRenderer: {fileID: 0}
+  playerData: {fileID: 0}
 --- !u!114 &885111596730974176
 MonoBehaviour:
   m_ObjectHideFlags: 0
