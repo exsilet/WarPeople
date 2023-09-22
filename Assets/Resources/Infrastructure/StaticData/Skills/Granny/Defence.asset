@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Defence
   m_EditorClassIdentifier: 
   UIIcon: {fileID: -1155696857, guid: 7fc2c29c3520d8b43b759ac0ebe50a2f, type: 3}
-  Label: 
+  Label: Defence
   Description: GrannyDefence
   CountLimit: 3
   _count: 3

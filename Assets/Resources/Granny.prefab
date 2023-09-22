@@ -12,12 +12,14 @@ GameObject:
   - component: {fileID: 2196808183289487504}
   - component: {fileID: 8131123273717106925}
   - component: {fileID: 2394283669933875905}
+  - component: {fileID: 3990050486890635164}
   - component: {fileID: 885111596730974176}
   - component: {fileID: 2805533341838671314}
   - component: {fileID: -7945472378953156410}
+  - component: {fileID: -4252196367748974758}
   m_Layer: 0
   m_Name: Granny
-  m_TagString: Untagged
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 4502521259196843285}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.8321}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -124,9 +126,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stopSecond: 1.5
   _hidePlayed: 0.3
-  _sprite: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  playerData: {fileID: 11400000, guid: 52ecd05684b4b164b9fb35539503fd76, type: 2}
+  _animator: {fileID: 3990050486890635164}
+--- !u!114 &3990050486890635164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502521259196843285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50fb89be41a460e940be0e3b13ef2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &885111596730974176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,10 +179,10 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Attack
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Stand
   - Type: 9
     SynchronizeType: 0
@@ -188,7 +200,7 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: StopAnimation
   m_SynchronizeLayers:
-  - SynchronizeType: 1
+  - SynchronizeType: 2
     LayerIndex: 0
 --- !u!114 &-7945472378953156410
 MonoBehaviour:
@@ -206,3 +218,16 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-4252196367748974758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502521259196843285}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8e78fe8cd645b09e87226e65035ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _photonView: {fileID: 885111596730974176}

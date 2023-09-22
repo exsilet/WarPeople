@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Counter
   m_EditorClassIdentifier: 
   UIIcon: {fileID: -48730258, guid: 7fc2c29c3520d8b43b759ac0ebe50a2f, type: 3}
-  Label: 
+  Label: Counter
   Description: HipsterCounter
   CountLimit: 1
   _count: 1

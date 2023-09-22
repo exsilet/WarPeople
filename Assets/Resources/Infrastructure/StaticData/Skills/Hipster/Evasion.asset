@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Evasion
   m_EditorClassIdentifier: 
   UIIcon: {fileID: -1847052682, guid: 7fc2c29c3520d8b43b759ac0ebe50a2f, type: 3}
-  Label: 
+  Label: Evasion
   Description: HipsterEvasion
   CountLimit: 1
   _count: 1

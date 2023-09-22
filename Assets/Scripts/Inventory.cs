@@ -7,9 +7,9 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField] private SkillsPanel _skillsPanel;
     [SerializeField] private Image _icon;
-    [SerializeField] private TimerStart _timer;
     [SerializeField] private List<SkillViewAttack> _skillViewsAttackPrefabs;
 
+    private TimerStart _timer;
     private int _maxCount = 10;
     private int _countSkill;
     private bool _isStarted;
@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         _skillsList = new List<SkillStaticData>();
-
+        _timer = FindObjectOfType<TimerStart>();
         _isStarted = true;
         OnEnable();
     }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpawnerPlayer1
   - SpawnerPlayer2
+  - Hero
   layers:
   - Default
   - TransparentFX

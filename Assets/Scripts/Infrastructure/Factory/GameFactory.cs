@@ -1,10 +1,8 @@
-﻿using Assets.Scripts.Infrastructure.UI.Menu;
+﻿using System;
 using Infrastructure.AssetManagement;
+using MultiPlayer;
 using Photon.Pun;
-using Photon.Pun.Demo.PunBasics;
 using StaticData;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Infrastructure.Factory
@@ -13,7 +11,12 @@ namespace Infrastructure.Factory
     {
         private readonly IAssetProvider _assets;
         private readonly IStaticDataService _staticData;
-        
+
+        public GameObject Hero1 { get; private set; }
+        public GameObject Hero2 { get; private set; }
+        public event Action HeroCreated;
+        public event Action HeroCreated1;
+
         public GameFactory(IAssetProvider assets, IStaticDataService staticData)
         {
             _assets = assets;
@@ -31,34 +34,40 @@ namespace Infrastructure.Factory
 
             if (PhotonNetwork.IsMasterClient)
             {
-
-                GameObject hero = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner);
-
+                Hero1 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner);
+                HeroCreated?.Invoke();
                 var hud = CreateHudBattlePlayer1();
-                for (int i = 0; i < staticData.SkillDatas.Count; i++)
-                {
-                    hud.GetComponentInChildren<SkillsPanel>().AddPlayerSkills(staticData.SkillDatas[i]);
-                }
-                hero.GetComponent<Player>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
-                    hud.GetComponentInChildren<Inventory>());
-                hero.GetComponent<Player>().SetPlayerData(staticData);
 
-                return hero;
+                foreach (var data in staticData.SkillDatas)
+                {
+                    hud.GetComponentInChildren<SkillsPanel>().AddPlayerSkills(data);
+                }
+                
+                Hero1.GetComponent<Player>().SetPlayerData(staticData);
+                Hero1.GetComponent<Player>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
+                    hud.GetComponentInChildren<Inventory>());
+                
+                return Hero1;
             }
             else
             {
-                GameObject hero = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner1);
+                Hero2 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner1);
+                HeroCreated1?.Invoke();
+                Hero2.GetComponent<PhotonViewComponents>().enabled = true;
+
+                //PhotonViewComponents photonView = hero.GetComponent<PhotonViewComponents>();
 
                 var hud = CreateHudBattle();
-                for (int i = 0; i < staticData.SkillDatas.Count; i++)
+
+                foreach (var data in staticData.SkillDatas)
                 {
-                    hud.GetComponentInChildren<SkillsPanel>().AddPlayerSkills(staticData.SkillDatas[i]);
+                    hud.GetComponentInChildren<SkillsPanel>().AddPlayerSkills(data);
                 }
-                hero.GetComponent<Player>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
-                    hud.GetComponentInChildren<Inventory>());
-                hero.GetComponent<SpriteRenderer>().flipX = true;
                 
-                return hero;
+                Hero2.GetComponent<Player>().SetPlayerData(staticData);
+                Hero2.GetComponent<Player>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
+                    hud.GetComponentInChildren<Inventory>());
+                return Hero2;
             }
 
             // RegisterProgressWatchers(hero);
@@ -68,11 +77,6 @@ namespace Infrastructure.Factory
         {
             PlayerStaticData heroData = _staticData.ForPlayer(typeId);
             GameObject heroPhoton = _assets.InstantiatePhoton(namePlayer, spawnerPlayer);
-
-            // Animator heroAnimation = heroPhoton.GetComponent<Animator>();
-            // //heroAnimation = heroData.Animator;
-            //Sprite iconPlayer = heroPhoton.GetComponent<SpriteRenderer>().sprite;
-            //iconPlayer = heroData.Icon;
 
             return heroPhoton;
         }

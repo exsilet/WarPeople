@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   UIIcon: {fileID: 1085843137, guid: 7fc2c29c3520d8b43b759ac0ebe50a2f, type: 3}
-  Label: 
+  Label: Attack
   Description: HipsterAttack
   CountLimit: 3
   _count: 3

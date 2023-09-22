@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: OfficeWorker
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 98a1593c3625d924e80e4aa99ec3c985, type: 3}
+  Prefab: {fileID: 4502521259196843285, guid: 5a17653986297b8429195c3b79a2a97e, type: 3}
   PlayerTypeId: 2
   SkillDatas:
   - {fileID: 11400000, guid: f233880e16b3edc42b3140cb880d65bd, type: 2}
   - {fileID: 11400000, guid: c4a22e61390740646992ba31f00e2528, type: 2}
   - {fileID: 11400000, guid: 744723b871ca64e4fb18b9aeddec5ef6, type: 2}
   - {fileID: 11400000, guid: b1795fc896d82384fbd86338ca0110ce, type: 2}
-  Animator: {fileID: 0}

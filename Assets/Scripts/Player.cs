@@ -1,27 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Infrastructure.Hero;
 using StaticData;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerAnimator))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _stopSecond;
     [SerializeField] private float _hidePlayed;
+    [SerializeField] private PlayerAnimator _animator;
 
     private PlayerStaticData _playerData;
     private Inventory _inventory;
     private SkillsPanel _skillsPanel;
 
-    private const string Attack = "Attack";
-    private const string Stand = "Stand";
-    private const string Protection = "Protection";
-    private const string Dodge = "Dodge";
-    private const string StrongAttack = "StrongAttack";
-    private const string Recharge = "Recharge";
-    private const string StopAnimation = "StopAnimation";
-    private Animator _animator;
     private bool _isInitialized;
     private List<SkillViewAttack> _viewAttacks = new();
 
@@ -30,12 +24,7 @@ public class Player : MonoBehaviour
         _skillsPanel = skillsPanel;
         _inventory = inventory;
     }
-    
-    private void Start()
-    {        
-        _animator = GetComponent<Animator>();
-    }
-    
+
     public void SetPlayerData(PlayerStaticData staticData)
         => _playerData = staticData;
 
@@ -47,7 +36,7 @@ public class Player : MonoBehaviour
         }
         
         _skillsPanel.NoActivePanel();
-        _animator.SetTrigger(Stand);
+        _animator.PlayStand();
         
         AttackPlayer();
     }
@@ -80,40 +69,31 @@ public class Player : MonoBehaviour
     private void OnEnd()
     {
         StopCoroutine(PlaySkill());
-        _animator.SetTrigger(StopAnimation);
+        _animator.PlayStopAnimation();
         _inventory.RemoveWarPlayer();
         _viewAttacks.Clear();
         _skillsPanel.ActivePanel();
     }
 
-    private void Hit() => _animator.SetTrigger(Attack);
-
-    private void DefenceAnimation() => _animator.SetTrigger(Protection);
-
-    private void EvasionAnimation() => _animator.SetTrigger(Dodge);
-
-    private void SuperAttackAnimation() => _animator.SetTrigger(StrongAttack);
-
-    private void CounterstrikeAnimation() => _animator.SetTrigger(Recharge);
-
+    
     private void ChoiceAttack(SkillViewAttack data)
     {
         switch (data.SkillStaticData.Type)
         {
             case SkillTypeId.Attack:
-                Hit();
+                _animator.PlayHit();
                 break;
             case SkillTypeId.Defence:
-                DefenceAnimation();
+                _animator.PlayDefenceAnimation();
                 break;
             case SkillTypeId.Evasion:
-                EvasionAnimation();
+                _animator.PlayEvasionAnimation();
                 break;
             case SkillTypeId.SuperAttack:
-                SuperAttackAnimation();
+                _animator.PlaySuperAttackAnimation();
                 break;
             case SkillTypeId.Counterstrike:
-                CounterstrikeAnimation();
+                _animator.PlayCounterstrikeAnimation();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

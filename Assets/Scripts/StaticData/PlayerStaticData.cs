@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace StaticData
 {
@@ -11,6 +10,5 @@ namespace StaticData
         public GameObject Prefab;
         public PlayerTypeId PlayerTypeId;
         public List<SkillStaticData> SkillDatas;
-        public Animator Animator;        
     }
 }
