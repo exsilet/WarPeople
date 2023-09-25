@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Infrastructure.Factory;
 using Infrastructure.Services;
+using MultiPlayer;
 using Photon.Pun;
 using TMPro;
 using UIExtensions;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Player = Infrastructure.Hero.Player;
 
 public class TimerStart : MonoBehaviour, IPunObservable
 {
     [SerializeField] private float _timerStart;
     [SerializeField] private TMP_Text _textTimer;
     [SerializeField] private Button _buttonPlay;
-
+    [SerializeField] private BattleActivated _activated;
 
     private IGameFactory _gameFactory;
-    private Player _player;
-    private Player _secondPlayer;
     private float _timer;
     private List<Player> _heroes = new();
 
@@ -28,30 +26,34 @@ public class TimerStart : MonoBehaviour, IPunObservable
     {
         _timer = _timerStart;
         _textTimer.text = _textTimer.ToString();
-        StartCoroutine(StartTime());
+        Debug.Log("star timer");
+        //StartCoroutine(StartTime());
     }
 
     private void Awake()
     {
         _gameFactory = AllServices.Container.Single<IGameFactory>();
         _gameFactory.HeroCreated += OnHeroCreated1;
-        _gameFactory.HeroCreated1 += OnHeroCreated2;
+        Debug.Log("awake time");
     }
-
-    private void OnHeroCreated1() => 
-        _heroes.Add(_gameFactory.Hero1.GetComponent<Player>());
-
-    private void OnHeroCreated2() =>
-        _heroes.Add(_gameFactory.Hero2.GetComponent<Player>());
 
     private void OnEnable()
     {
         _buttonPlay.Add(StartBattlePlay);
+        _gameFactory.HeroCreated1 += OnHeroCreated2;
+        Debug.Log("onEnable time");
     }
 
     private void OnDisable()
     {
         _buttonPlay.Remove(StartBattlePlay);
+    }
+
+    public void StartBattle()
+    {
+        _timerStart = _timer;
+        _buttonPlay.Activate();
+        //StartCoroutine(StartTime());
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -66,11 +68,25 @@ public class TimerStart : MonoBehaviour, IPunObservable
         }
     }
 
-    public void StartBattle()
+    private void OnHeroCreated1()
     {
-        _timerStart = _timer;
-        //_buttonPlay.Activate();
-        StartCoroutine(StartTime());
+        // _heroes.Add(_gameFactory.Hero1.GetComponent<Player>());
+        // _heroes.Add(_gameFactory.Hero2.GetComponent<Player>());
+        PhotonView hero = FindObjectOfType<PhotonView>();
+        _heroes.Add(hero.GetComponent<Player>());
+        // _heroes.Add(hero.GetComponent<Player>());
+        Debug.Log("crated hero to scene");
+    }
+
+    private void OnHeroCreated2()
+    {
+        _heroes.Add(_gameFactory.Hero2.GetComponent<Player>());
+        Debug.Log("crated hero2 to scene");
+        
+        foreach (var currentPlayer in _heroes)
+        {
+            _activated.AddHero(currentPlayer);
+        }
     }
 
     private IEnumerator StartTime()

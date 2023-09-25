@@ -3,7 +3,7 @@
     public enum AnimatorState
     {
         Unknown,
-        Stand,
+        Idle,
         Attack,
         Protection,
         Dodge,

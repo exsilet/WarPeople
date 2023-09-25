@@ -179,10 +179,10 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Attack
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Stand
   - Type: 9
     SynchronizeType: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: Recharge
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: StopAnimation
   m_SynchronizeLayers:
   - SynchronizeType: 1
