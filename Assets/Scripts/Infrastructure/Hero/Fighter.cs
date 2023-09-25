@@ -8,18 +8,25 @@ using UnityEngine;
 namespace Infrastructure.Hero
 {
     [RequireComponent(typeof(PlayerAnimator))]
-    public class Player : MonoBehaviour
+    public class Fighter : MonoBehaviour
     {
         [SerializeField] private float _stopSecond;
         [SerializeField] private float _hidePlayed;
         [SerializeField] private PlayerAnimator _animator;
 
-        private PlayerStaticData _playerData;
+        public PlayerStaticData PlayerData;
         private Inventory _inventory;
         private SkillsPanel _skillsPanel;
 
         private bool _isInitialized;
-        private List<SkillViewAttack> _viewAttacks = new();
+        public bool _skillUsed;
+        //public List<SkillViewAttack> _viewAttacks = new();
+        private TimerStart _timer;
+
+        private void Start()
+        {
+            _timer = FindObjectOfType<TimerStart>();
+        }
 
         public void Construct(SkillsPanel skillsPanel, Inventory inventory)
         {
@@ -28,14 +35,14 @@ namespace Infrastructure.Hero
         }
 
         public void SetPlayerData(PlayerStaticData staticData)
-            => _playerData = staticData;
+            => PlayerData = staticData;
 
         public void AttackSkill()
         {
-            foreach (SkillViewAttack data in _inventory._skillViewAttack)
-            {
-                _viewAttacks.Add(data);
-            }
+            // foreach (SkillViewAttack data in _inventory._skillViewAttack)
+            // {
+            //     _viewAttacks.Add(data);
+            // }
         
             _skillsPanel.NoActivePanel();
             _animator.PlayStand();
@@ -66,16 +73,19 @@ namespace Infrastructure.Hero
             }
             
             _animator.PlayStopAnimation();
-            yield return new WaitForSeconds(_stopSecond);
+            _skillUsed = false;
+            _timer.AnimationStop();
+            yield return new WaitForSeconds(0.5f);
             
-            OnEnd();
+            //OnEnd();
         }
 
-        private void OnEnd()
+        public void OnEndBattle()
         {
             StopCoroutine(PlaySkill());
             _inventory.RemoveWarPlayer();
-            _viewAttacks.Clear();
+            //_viewAttacks.Clear();
+            _skillUsed = true;
             _skillsPanel.ActivePanel();
         }
 

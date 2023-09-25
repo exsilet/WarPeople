@@ -2,58 +2,79 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Infrastructure.Factory;
+using Infrastructure.Hero;
 using Infrastructure.Services;
-using MultiPlayer;
+using Logic;
 using Photon.Pun;
 using TMPro;
 using UIExtensions;
 using UnityEngine;
 using UnityEngine.UI;
-using Player = Infrastructure.Hero.Player;
 
-public class TimerStart : MonoBehaviour, IPunObservable
+public class TimerStart : MonoBehaviour, IPunObservable 
 {
     [SerializeField] private float _timerStart;
     [SerializeField] private TMP_Text _textTimer;
     [SerializeField] private Button _buttonPlay;
-    [SerializeField] private BattleActivated _activated;
 
     private IGameFactory _gameFactory;
+    private Fighter _fighter;
     private float _timer;
-    private List<Player> _heroes = new();
+    private List<Fighter> _fighters = new();
 
     private void Start()
     {
         _timer = _timerStart;
         _textTimer.text = _textTimer.ToString();
         Debug.Log("star timer");
-        //StartCoroutine(StartTime());
+
+        // foreach (Player player in PhotonNetwork.PlayerList)
+        // {
+        //     
+        //     _heroes.Add(player);
+        //     Debug.Log("Player name " + player.IsMasterClient);
+        // }
+        
+        StartCoroutine(CreateHero());
+        
+        StartCoroutine(StartTime());
     }
 
-    private void Awake()
+    private IEnumerator CreateHero()
     {
-        _gameFactory = AllServices.Container.Single<IGameFactory>();
-        _gameFactory.HeroCreated += OnHeroCreated1;
-        Debug.Log("awake time");
+        yield return new WaitForSeconds(1f);
+        GetFighters();
     }
 
-    private void OnEnable()
+    private void GetFighters()
     {
-        _buttonPlay.Add(StartBattlePlay);
-        _gameFactory.HeroCreated1 += OnHeroCreated2;
-        Debug.Log("onEnable time");
+        var photonViews = FindObjectsOfType<PhotonView>();
+        foreach (PhotonView view in photonViews)
+        {
+            var player = view.Owner;
+            if (player != null)
+            {
+                var playerObject = view.gameObject;
+                _fighters.Add(playerObject.GetComponent<Fighter>());
+            }
+        }
     }
 
-    private void OnDisable()
-    {
-        _buttonPlay.Remove(StartBattlePlay);
-    }
+    // public void OnEnable()
+    // {
+    //     _buttonPlay.Add(StartBattlePlay);
+    // }
+    //
+    // public void OnDisable()
+    // {
+    //     _buttonPlay.Remove(StartBattlePlay);
+    // }
 
     public void StartBattle()
     {
         _timerStart = _timer;
-        _buttonPlay.Activate();
-        //StartCoroutine(StartTime());
+        //_buttonPlay.Activate();
+        StartCoroutine(StartTime());
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -68,27 +89,6 @@ public class TimerStart : MonoBehaviour, IPunObservable
         }
     }
 
-    private void OnHeroCreated1()
-    {
-        // _heroes.Add(_gameFactory.Hero1.GetComponent<Player>());
-        // _heroes.Add(_gameFactory.Hero2.GetComponent<Player>());
-        PhotonView hero = FindObjectOfType<PhotonView>();
-        _heroes.Add(hero.GetComponent<Player>());
-        // _heroes.Add(hero.GetComponent<Player>());
-        Debug.Log("crated hero to scene");
-    }
-
-    private void OnHeroCreated2()
-    {
-        _heroes.Add(_gameFactory.Hero2.GetComponent<Player>());
-        Debug.Log("crated hero2 to scene");
-        
-        foreach (var currentPlayer in _heroes)
-        {
-            _activated.AddHero(currentPlayer);
-        }
-    }
-
     private IEnumerator StartTime()
     {
         while (_timerStart >= 0)
@@ -99,26 +99,41 @@ public class TimerStart : MonoBehaviour, IPunObservable
             yield return new WaitForSeconds(1.1f);
         }
 
-        OnEnd();
+        OnEndTimer();
     }
 
-    private void OnEnd()
+    private void OnEndTimer()
     {
         StopCoroutine(StartTime());
-        
-        foreach (var currentPlayer in _heroes)
+
+        foreach (Fighter fighter in _fighters)
         {
-            currentPlayer.AttackSkill();
+            if (fighter.PlayerData != null)
+                _fighter = fighter;
         }
+        
+        _fighter.AttackSkill();
     }
 
-    private void StartBattlePlay()
-    {
-        _buttonPlay.Deactivate();
+    // private void StartBattlePlay()
+    // {
+    //     _buttonPlay.Deactivate();
+    //     
+    //     foreach (Fighter fighter in _fighters)
+    //     {
+    //         fighter.AttackSkill();
+    //     }
+    // }
 
-        foreach (var currentPlayer in _heroes)
+    public void AnimationStop()
+    {
+        for (int i = 0; i < _fighters.Count; i++)
         {
-            currentPlayer.AttackSkill();
+            if (_fighters[i]._skillUsed == false & _fighters[i + 1]._skillUsed == false)
+            {
+                _fighter.OnEndBattle();
+                break;
+            }
         }
     }
 }

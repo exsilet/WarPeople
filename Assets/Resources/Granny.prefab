@@ -127,6 +127,8 @@ MonoBehaviour:
   _stopSecond: 1.5
   _hidePlayed: 0.3
   _animator: {fileID: 3990050486890635164}
+  PlayerData: {fileID: 0}
+  _skillUsed: 0
 --- !u!114 &3990050486890635164
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,8 +15,6 @@ namespace Infrastructure.Factory
 
         public GameObject Hero1 { get; private set; }
         public GameObject Hero2 { get; private set; }
-        public event Action HeroCreated;
-        public event Action HeroCreated1;
 
         public GameFactory(IAssetProvider assets, IStaticDataService staticData)
         {
@@ -35,8 +33,7 @@ namespace Infrastructure.Factory
             if (PhotonNetwork.IsMasterClient)
             {
                 Hero1 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner);
-                HeroCreated?.Invoke();
-                
+
                 var hud = CreateHudBattle(AssetPath.HudBattlePlayer1Path, staticData);
                 
                 Construct(Hero1, staticData, hud);
@@ -46,8 +43,7 @@ namespace Infrastructure.Factory
             else
             {
                 Hero2 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner1);
-                HeroCreated?.Invoke();
-                
+
                 Hero2.GetComponent<PhotonViewComponents>().enabled = true;
                 
                 var hud = CreateHudBattle(AssetPath.HudBattlePlayer2Path, staticData);
@@ -82,8 +78,8 @@ namespace Infrastructure.Factory
 
         private void Construct(GameObject hero, PlayerStaticData staticData, GameObject hud)
         {
-            hero.GetComponent<Player>().SetPlayerData(staticData);
-            hero.GetComponent<Player>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
+            hero.GetComponent<Fighter>().SetPlayerData(staticData);
+            hero.GetComponent<Fighter>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
                 hud.GetComponentInChildren<Inventory>());
         }
     }
