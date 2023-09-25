@@ -18,11 +18,12 @@ namespace Infrastructure.Hero
         
         private readonly int _deathStateHash = Animator.StringToHash("Died");
         private readonly int _attackStateHash = Animator.StringToHash("attack");
-        private readonly int _standStateHash = Animator.StringToHash("Stand");
+        private readonly int _standStateHash = Animator.StringToHash("idle");
         private readonly int _protectionStateHash = Animator.StringToHash("Protection");
         private readonly int _dodgeStateHash = Animator.StringToHash("Dodge");
         private readonly int _strongAttackStateHash = Animator.StringToHash("StrongAttack");
         private readonly int _rechargeStateHash = Animator.StringToHash("Recharge");
+        private readonly int _stopStateHash = Animator.StringToHash("New State");
 
         private Animator _animator;
 
@@ -58,7 +59,7 @@ namespace Infrastructure.Hero
             AnimatorState state;
             if (stateHash == _standStateHash)
             {
-                state = AnimatorState.Stand;
+                state = AnimatorState.Idle;
             }
             else if (stateHash == _attackStateHash)
             {
@@ -83,6 +84,10 @@ namespace Infrastructure.Hero
             else if (stateHash == _deathStateHash)
             {
                 state = AnimatorState.Died;
+            }
+            else if (stateHash == _stopStateHash)
+            {
+                state = AnimatorState.StopAnimation;
             }
             else
             {

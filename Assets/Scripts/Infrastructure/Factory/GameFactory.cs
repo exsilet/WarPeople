@@ -1,5 +1,6 @@
 ﻿using System;
 using Infrastructure.AssetManagement;
+using Infrastructure.Hero;
 using MultiPlayer;
 using Photon.Pun;
 using StaticData;
@@ -14,8 +15,6 @@ namespace Infrastructure.Factory
 
         public GameObject Hero1 { get; private set; }
         public GameObject Hero2 { get; private set; }
-        public event Action HeroCreated;
-        public event Action HeroCreated1;
 
         public GameFactory(IAssetProvider assets, IStaticDataService staticData)
         {
@@ -27,46 +26,30 @@ namespace Infrastructure.Factory
         {
             _assets.Instantiate(AssetPath.HudPath);
         }
-       
-
+        
         public GameObject CreateHero(PlayerTypeId typeId, PlayerStaticData staticData)
         {
 
             if (PhotonNetwork.IsMasterClient)
             {
                 Hero1 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner);
-                HeroCreated?.Invoke();
-                var hud = CreateHudBattlePlayer1();
 
-                foreach (var data in staticData.SkillDatas)
-                {
-                    hud.GetComponentInChildren<SkillsPanel>().AddPlayerSkills(data);
-                }
+                var hud = CreateHudBattle(AssetPath.HudBattlePlayer1Path, staticData);
                 
-                Hero1.GetComponent<Player>().SetPlayerData(staticData);
-                Hero1.GetComponent<Player>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
-                    hud.GetComponentInChildren<Inventory>());
+                Construct(Hero1, staticData, hud);
                 
                 return Hero1;
             }
             else
             {
                 Hero2 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner1);
-                HeroCreated1?.Invoke();
+
                 Hero2.GetComponent<PhotonViewComponents>().enabled = true;
-
-                //PhotonViewComponents photonView = hero.GetComponent<PhotonViewComponents>();
-
-                var hud = CreateHudBattle();
-
-                foreach (var data in staticData.SkillDatas)
-                {
-                    hud.GetComponentInChildren<SkillsPanel>().AddPlayerSkills(data);
-                }
                 
-                Hero2.GetComponent<Player>().SetPlayerData(staticData);
-                Hero2.GetComponent<Player>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
-                    hud.GetComponentInChildren<Inventory>());
+                var hud = CreateHudBattle(AssetPath.HudBattlePlayer2Path, staticData);
+
+                Construct(Hero2, staticData, hud);
+                
                 return Hero2;
             }
 
@@ -80,26 +63,24 @@ namespace Infrastructure.Factory
 
             return heroPhoton;
         }
-        
-        private GameObject InstantiateRegistered(string prefabPath)
-        {
-            GameObject gameObject = _assets.Instantiate(path: prefabPath);
 
-            return gameObject;
-        }
-        
-        public GameObject CreateHudBattlePlayer1()
+        private GameObject CreateHudBattle(string path, PlayerStaticData staticData)
         {
-            GameObject hud = _assets.Instantiate(AssetPath.HudBattlePlayer1Path);
+            GameObject hud = _assets.Instantiate(path);
+            
+            foreach (var data in staticData.SkillDatas)
+            {
+                hud.GetComponentInChildren<SkillsPanel>().AddPlayerSkills(data);
+            }
             
             return hud;
         }
 
-        public GameObject CreateHudBattle()
+        private void Construct(GameObject hero, PlayerStaticData staticData, GameObject hud)
         {
-            GameObject hud = _assets.Instantiate(AssetPath.HudBattlePlayer2Path);
-            
-            return hud;
+            hero.GetComponent<Fighter>().SetPlayerData(staticData);
+            hero.GetComponent<Fighter>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
+                hud.GetComponentInChildren<Inventory>());
         }
     }
 }

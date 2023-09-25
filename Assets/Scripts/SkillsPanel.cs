@@ -12,11 +12,6 @@ public class SkillsPanel : MonoBehaviour
     private bool _isStarted;
     private SkillView _skillView;
 
-    public void Construct(Inventory inventory)
-    {
-        _inventory = inventory;
-    }
-
     private void Start()
     {
         for (int i = 0; i < _skills.Count; i++)

@@ -16,11 +16,6 @@ public class Inventory : MonoBehaviour
     private List<SkillStaticData> _skillsList;
     protected internal List<SkillViewAttack> _skillViewAttack = new();
 
-    public void Construct(SkillsPanel skillsPanel)
-    {
-        _skillsPanel = skillsPanel;
-    }
-
     private void Start()
     {
         _skillsList = new List<SkillStaticData>();
