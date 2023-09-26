@@ -39,11 +39,6 @@ namespace Infrastructure.Hero
         {
             _skillsPanel = skillsPanel;
             _inventory = inventory;
-        }
-
-        private void OnEnable()
-        {
-            
         }        
 
         public void SetPlayerData(PlayerStaticData staticData)
