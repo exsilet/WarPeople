@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Infrastructure.Hero;
+using Photon.Pun;
 using UnityEngine;
 
 namespace MultiPlayer

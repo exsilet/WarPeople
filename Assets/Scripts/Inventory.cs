@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using StaticData;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
@@ -75,21 +76,22 @@ public class Inventory : MonoBehaviour
         view.RemoveSkill();
         _skillsPanel.AddCountSkill(view, data);
         _skillsList.Remove(data);
-        _skillViewAttack.Remove(view);
+        _skillViewAttack.Remove(view);        
     }
 
     public void RemoveWarPlayer()
     {
         foreach (SkillViewAttack view in _skillViewsAttackPrefabs)
-        {
+        {            
             _skillsPanel.AddCountSkill(view, view.SkillStaticData);
             _skillsList.Remove(view.SkillStaticData);
             _skillViewAttack.Remove(view);
             view.RemoveSkill();
             view.UpAttack();
-            view.Show();
+            view.Show();            
         }
-        
-        _timer.StartBattle();
+
+        Debug.Log("SkillsRemoved");
+        //_timer.StartBattle();
     }
 }

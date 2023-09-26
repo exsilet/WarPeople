@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Infrastructure.Factory;
@@ -9,6 +10,7 @@ using Photon.Pun;
 using TMPro;
 using UIExtensions;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class TimerStart : MonoBehaviour, IPunObservable 
@@ -21,6 +23,11 @@ public class TimerStart : MonoBehaviour, IPunObservable
     private Fighter _fighter;
     private float _timer;
     private List<Fighter> _fighters = new();
+    public Fighter fighter1;
+    public Fighter fighter2;
+    private int _endRoundCount;
+
+    public event UnityAction BothCompleted;
 
     private void Start()
     {
@@ -58,17 +65,33 @@ public class TimerStart : MonoBehaviour, IPunObservable
                 _fighters.Add(playerObject.GetComponent<Fighter>());
             }
         }
+        fighter1 = _fighters[0];
+        fighter2 = _fighters[1];
+
+        fighter1.RoundEnded += OnRoundEnd;
+        fighter2.RoundEnded += OnRoundEnd;
     }
 
-    // public void OnEnable()
-    // {
-    //     _buttonPlay.Add(StartBattlePlay);
-    // }
-    //
-    // public void OnDisable()
-    // {
-    //     _buttonPlay.Remove(StartBattlePlay);
-    // }
+    private void OnRoundEnd(bool isEnd)
+    {
+        _endRoundCount++;
+
+        if (_endRoundCount == 2)
+        {
+            BothCompleted?.Invoke();
+        }
+    }
+
+    public void OnEnable()
+    {
+        BothCompleted += StartBattle;
+        //_buttonPlay.Add(StartBattlePlay);
+    }
+
+    public void OnDisable()
+    {
+        //_buttonPlay.Remove(StartBattlePlay);
+    }
 
     public void StartBattle()
     {
@@ -113,7 +136,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
         }
         
         _fighter.AttackSkill();
-    }
+    }    
 
     // private void StartBattlePlay()
     // {
@@ -129,7 +152,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
     {
         for (int i = 0; i < _fighters.Count; i++)
         {
-            if (_fighters[i]._skillUsed == false & _fighters[i + 1]._skillUsed == false)
+            if (_fighters[i]._isRoundEnd == true & _fighters[i + 1]._isRoundEnd == true)
             {
                 _fighter.OnEndBattle();
                 break;

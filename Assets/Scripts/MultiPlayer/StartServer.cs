@@ -102,8 +102,8 @@ namespace MultiPlayer
         {
             Debug.Log("Connected to room");
             // PhotonNetwork.LoadLevel(GameScene);
-            _stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData);
-            //StartCoroutine(ActivePlayer());
+            //_stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData);
+            StartCoroutine(ActivePlayer());
         }
 
         private IEnumerator ActivePlayer()

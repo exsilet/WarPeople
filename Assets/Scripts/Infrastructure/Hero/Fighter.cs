@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Logic;
+using Photon.Pun;
 using StaticData;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Infrastructure.Hero
 {
@@ -19,13 +21,18 @@ namespace Infrastructure.Hero
         private SkillsPanel _skillsPanel;
 
         private bool _isInitialized;
-        public bool _skillUsed;
         //public List<SkillViewAttack> _viewAttacks = new();
         private TimerStart _timer;
+        private PhotonView _photonView;
+
+        public bool _isRoundEnd;
+        public event UnityAction<bool> RoundEnded;
+
 
         private void Start()
         {
             _timer = FindObjectOfType<TimerStart>();
+            _photonView = GetComponent<PhotonView>();
         }
 
         public void Construct(SkillsPanel skillsPanel, Inventory inventory)
@@ -33,6 +40,11 @@ namespace Infrastructure.Hero
             _skillsPanel = skillsPanel;
             _inventory = inventory;
         }
+
+        private void OnEnable()
+        {
+            
+        }        
 
         public void SetPlayerData(PlayerStaticData staticData)
             => PlayerData = staticData;
@@ -72,12 +84,11 @@ namespace Infrastructure.Hero
                 Debug.Log("war");
             }
             
-            _animator.PlayStopAnimation();
-            _skillUsed = false;
-            _timer.AnimationStop();
+            //_isBattleEnd = false;
+            //_timer.AnimationStop();
             yield return new WaitForSeconds(0.5f);
-            
-            //OnEnd();
+            _animator.PlayStopAnimation();
+            OnEndBattle();            
         }
 
         public void OnEndBattle()
@@ -85,10 +96,16 @@ namespace Infrastructure.Hero
             StopCoroutine(PlaySkill());
             _inventory.RemoveWarPlayer();
             //_viewAttacks.Clear();
-            _skillUsed = true;
             _skillsPanel.ActivePanel();
+            _photonView.RPC(nameof(EndBattle), RpcTarget.All);
         }
 
+        [PunRPC]
+        public void EndBattle()
+        {
+            _isRoundEnd = true;
+            RoundEnded?.Invoke(_isRoundEnd);
+        }
     
         private void ChoiceAttack(SkillViewAttack data)
         {
@@ -112,6 +129,6 @@ namespace Infrastructure.Hero
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
+        }        
     }
 }
