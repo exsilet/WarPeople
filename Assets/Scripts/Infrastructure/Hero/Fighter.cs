@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Logic;
+using MultiPlayer;
 using Photon.Pun;
 using StaticData;
 using UnityEngine;
@@ -10,25 +9,27 @@ using UnityEngine.Events;
 namespace Infrastructure.Hero
 {
     [RequireComponent(typeof(PlayerAnimator))]
+    [RequireComponent(typeof(PhotonView))]
+    [RequireComponent(typeof(PhotonViewComponents))]
     public class Fighter : MonoBehaviour
     {
         [SerializeField] private float _stopSecond;
         [SerializeField] private float _hidePlayed;
         [SerializeField] private PlayerAnimator _animator;
 
-        public PlayerStaticData PlayerData;
+        private PlayerStaticData _playerData;
         private Inventory _inventory;
         private SkillsPanel _skillsPanel;
 
         private bool _isInitialized;
-        //public List<SkillViewAttack> _viewAttacks = new();
         private TimerStart _timer;
         private PhotonView _photonView;
+        public PlayerStaticData PlayerData => _playerData;
+        public PhotonView PhotonView => _photonView;
 
         public bool _isRoundEnd;
         public event UnityAction<bool> RoundEnded;
-
-
+        
         private void Start()
         {
             _timer = FindObjectOfType<TimerStart>();
@@ -41,21 +42,11 @@ namespace Infrastructure.Hero
             _inventory = inventory;
         }
 
-        private void OnEnable()
-        {
-            
-        }        
-
         public void SetPlayerData(PlayerStaticData staticData)
-            => PlayerData = staticData;
+            => _playerData = staticData;
 
         public void AttackSkill()
         {
-            // foreach (SkillViewAttack data in _inventory._skillViewAttack)
-            // {
-            //     _viewAttacks.Add(data);
-            // }
-        
             _skillsPanel.NoActivePanel();
             _animator.PlayStand();
         
@@ -86,16 +77,15 @@ namespace Infrastructure.Hero
             
             //_isBattleEnd = false;
             //_timer.AnimationStop();
-            yield return new WaitForSeconds(0.5f);
             _animator.PlayStopAnimation();
+            yield return new WaitForSeconds(0.5f);
             OnEndBattle();            
         }
 
-        public void OnEndBattle()
+        private void OnEndBattle()
         {
             StopCoroutine(PlaySkill());
             _inventory.RemoveWarPlayer();
-            //_viewAttacks.Clear();
             _skillsPanel.ActivePanel();
             _photonView.RPC(nameof(EndBattle), RpcTarget.All);
         }
@@ -105,6 +95,11 @@ namespace Infrastructure.Hero
         {
             _isRoundEnd = true;
             RoundEnded?.Invoke(_isRoundEnd);
+        }
+
+        public void AttackHero()
+        {
+            
         }
     
         private void ChoiceAttack(SkillViewAttack data)

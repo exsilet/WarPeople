@@ -47,6 +47,12 @@ MonoBehaviour:
   - RPCreateHero
   - OnEndBattle
   - EndBattle
+  - CreateHealth
+  - ApplyDamageRPC
+  - IconHealth
+  - DisplayIconHealth
+  - DisplayHero
+  - DisplayMaxHero
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

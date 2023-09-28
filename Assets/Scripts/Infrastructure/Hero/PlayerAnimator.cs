@@ -1,10 +1,12 @@
 ﻿using System;
 using Logic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Infrastructure.Hero
 {
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(PhotonAnimatorView))]
     public class PlayerAnimator : MonoBehaviour, IAnimationStateReader
     {
         private static readonly int AttackHash = Animator.StringToHash("Attack");
@@ -57,6 +59,38 @@ namespace Infrastructure.Hero
         private AnimatorState StateFor(int stateHash)
         {
             AnimatorState state;
+
+            // switch (stateHash)
+            // {
+            //     case _standStateHash:
+            //         state = AnimatorState.Idle;
+            //         return state;
+            //     case _attackStateHash:
+            //         state = AnimatorState.Attack;
+            //         return state;
+            //     case _protectionStateHash:
+            //         state = AnimatorState.Protection;
+            //         return state;
+            //     case _dodgeStateHash:
+            //         state = AnimatorState.Dodge;
+            //         return state;
+            //     case _strongAttackStateHash:
+            //         state = AnimatorState.StrongAttack;
+            //         return state;
+            //     case _rechargeStateHash:
+            //         state = AnimatorState.Recharge;
+            //         return state;
+            //     case _deathStateHash:
+            //         state = AnimatorState.Died;
+            //         return state;
+            //     case _stopStateHash:
+            //         state = AnimatorState.StopAnimation;
+            //         return state;
+            //     default:
+            //         state = AnimatorState.Unknown;
+            //         return state;
+            // }
+            
             if (stateHash == _standStateHash)
             {
                 state = AnimatorState.Idle;
