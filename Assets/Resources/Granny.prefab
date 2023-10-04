@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1291997445880130763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3108949870831660489}
+  - component: {fileID: 5125142804126130687}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3108949870831660489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291997445880130763}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3702957876466951690}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5125142804126130687
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291997445880130763}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4502521259196843285
 GameObject:
   m_ObjectHideFlags: 0
@@ -19,6 +72,7 @@ GameObject:
   - component: {fileID: 2805533341838671314}
   - component: {fileID: -7945472378953156410}
   - component: {fileID: -4252196367748974758}
+  - component: {fileID: 8476287346119150925}
   m_Layer: 0
   m_Name: Granny
   m_TagString: Hero
@@ -39,6 +93,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8372159569732852070}
+  - {fileID: 3108949870831660489}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -170,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _heroHealth: {fileID: 2604308200113356241}
   _fighter: {fileID: 2394283669933875905}
+  _attackDistance: 10
 --- !u!114 &885111596730974176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +318,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _photonView: {fileID: 885111596730974176}
+--- !u!70 &8476287346119150925
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502521259196843285}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.15750802, y: 0.32116747}
+  m_Size: {x: 0.9900682, y: 3.1388636}
+  m_Direction: 0
 --- !u!1001 &1888296230401750248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -274,6 +365,10 @@ PrefabInstance:
       propertyPath: _fighter
       value: 
       objectReference: {fileID: 2394283669933875905}
+    - target: {fileID: 3185838136196036614, guid: c30740fd36d7c2d41a9be216fb52179b, type: 3}
+      propertyPath: _photonView
+      value: 
+      objectReference: {fileID: 885111596730974176}
     - target: {fileID: 7584042498514870459, guid: c30740fd36d7c2d41a9be216fb52179b, type: 3}
       propertyPath: m_Name
       value: HeroHealth

@@ -34,6 +34,7 @@ namespace Infrastructure.Hero
         private void OnEnable()
         {
             _photonView = GetComponent<PhotonView>();
+            
             if (_photonView.IsMine)
                 _photonView.RPC(nameof(DisplayMaxHero), RpcTarget.All);
         }
@@ -44,22 +45,22 @@ namespace Infrastructure.Hero
             _healthView.IconHealth();
         }
 
-        public void ApplyDamage(int damage, Player fighter)
+        public void ApplyDamage(int damage)
         {
-            //object[] rpsParameters = new object[2] { damage, fighter };
             _photonView.RPC(nameof(ApplyDamageRPC), RpcTarget.All, damage);
         }
 
         [PunRPC]
-        private void ApplyDamageRPC(int damage, Player player)
+        private void ApplyDamageRPC(int damage)
         {
+            Debug.Log("yron hero");
+            
             if (_photonView.IsMine == false)
                 return;
 
             if (_photonView.IsMine && _currentHp > 0f)
             {
                 _currentHp -= damage;
-                HealthChanged?.Invoke(_currentHp);
                 _photonView.RPC(nameof(DisplayHero), RpcTarget.All, _currentHp);
             }
 
@@ -70,13 +71,14 @@ namespace Infrastructure.Hero
         [PunRPC]
         public void DisplayHero(int currentHp)
         {
-            _healthView.ShowApplyDamage(currentHp);
+            _healthView.DrawingLives(currentHp);
         }
 
         private void Die()
         {
-            _animator.PlayDeath();
+            //_animator.PlayDeath();
             Died?.Invoke();
+            Destroy(gameObject);
         }
     }
 }

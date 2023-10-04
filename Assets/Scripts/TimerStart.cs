@@ -57,7 +57,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
 
     private void GetFighters()
     {
-        var photonViews = FindObjectsOfType<PhotonView>();
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
         foreach (PhotonView view in photonViews)
         {
             Player player = view.Owner;

@@ -75,10 +75,9 @@ namespace Infrastructure.Hero
                 Debug.Log("war");
             }
             
-            //_isBattleEnd = false;
-            //_timer.AnimationStop();
-            _animator.PlayStopAnimation();
             yield return new WaitForSeconds(0.5f);
+            
+            _animator.PlayStopAnimation();
             OnEndBattle();            
         }
 
@@ -97,11 +96,6 @@ namespace Infrastructure.Hero
             RoundEnded?.Invoke(_isRoundEnd);
         }
 
-        public void AttackHero()
-        {
-            
-        }
-    
         private void ChoiceAttack(SkillViewAttack data)
         {
             switch (data.SkillStaticData.Type)
