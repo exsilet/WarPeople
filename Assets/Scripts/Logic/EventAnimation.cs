@@ -27,8 +27,7 @@ namespace Logic
 
             _staticData = _fighter.PlayerData;
             _photonView = GetComponent<PhotonView>();
-            AttackSkill();
-            
+
             StartCoroutine(CreateHero());
         }
 
@@ -75,6 +74,7 @@ namespace Logic
         {
             yield return new WaitForSeconds(1f);
             GetFighters();
+            AttackSkill();
         }
 
         private void GetFighters()
@@ -103,7 +103,7 @@ namespace Logic
         {
             foreach (SkillStaticData data in _staticData.SkillDatas)
             {
-                if (_attackSkill.Damage == data.Damage)
+                if (SkillTypeId.Attack == data.Type)
                     _attackSkill = data;
             }
         }
