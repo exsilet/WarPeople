@@ -22,23 +22,32 @@ namespace MultiPlayer
         [SerializeField] private GameObject _panel;
         [SerializeField] private ChooseFighter _chooseFighter;
         
-        private PlayerStaticData _playerStaticData;
-        private string _playerName;
-        private IGameStateMachine _stateMachine;
-        private const string GameScene = "GameScene";
+        private PlayerStaticData _choosedPlayerData;
         private PlayerStaticData _staticData;
-
-        private void Start()
-        {
-            ConnectToPhotonServer();
-            _playerStaticData = _chooseFighter.CurrentFighter;
-        }
+        private PlayerStaticData _botData;
+        private IGameStateMachine _stateMachine;
+        private string _playerName;
+        private const string GameScene = "GameScene";
 
         private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
             _stateMachine = AllServices.Container.Single<IGameStateMachine>();
         }
+
+        private void Start()
+        {
+            ConnectToPhotonServer();
+            _choosedPlayerData = _chooseFighter.CurrentFighter;
+        }
+
+        //private void Update()
+        //{
+        //    if (_timerStart == 2)
+        //    {
+        //        OnEnd();
+        //    }
+        //}
 
         private void ConnectToPhotonServer()
         {
@@ -61,12 +70,13 @@ namespace MultiPlayer
         }
         public void SetPlayerData(PlayerStaticData staticData)
         {
-            _playerStaticData = staticData;
+            _choosedPlayerData = staticData;
         }
 
         public void QuickMatch()
         {
-            _staticData = _playerStaticData;
+            _staticData = _choosedPlayerData;
+            _botData = _chooseFighter.GetRandomData();
             PhotonNetwork.JoinRandomRoom();
         }
 
@@ -102,7 +112,7 @@ namespace MultiPlayer
         {
             Debug.Log("Connected to room");
             // PhotonNetwork.LoadLevel(GameScene);
-            //_stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData);
+            //_stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData, null);
             StartCoroutine(ActivePlayer());
         }
 
@@ -111,10 +121,21 @@ namespace MultiPlayer
             while (PhotonNetwork.CurrentRoom.PlayerCount != 2)
             {
                 SearchTime();
+                if (_timerStart >= 4)
+                {
+                    EnterOnePlayer();
+                    //break;
+                }
+
                 yield return null;
             }
+            EnterTowPlayers();
+        }
 
-            OnEnd();
+        private void EnterTowPlayers()
+        {
+            StopCoroutine(ActivePlayer());
+            _stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData, null);
         }
 
         private void SearchTime()
@@ -122,14 +143,14 @@ namespace MultiPlayer
             _panel.SetActive(true);
             _timerStart += Time.deltaTime;
             TimeSpan time = TimeSpan.FromSeconds(_timerStart);
-            _textTimer.text = time.Minutes.ToString("00") + ":" + time.Seconds.ToString("00");
+            _textTimer.text = time.Minutes.ToString("00") + ":" + time.Seconds.ToString("00");            
         }
 
-        private void OnEnd()
+        private void EnterOnePlayer()
         {
             StopCoroutine(ActivePlayer());
-            //PhotonNetwork.LoadLevel(GameScene);
-            _stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData);
+            Debug.Log(_botData);
+            _stateMachine.Enter<LoadLevelState, string>(GameScene, _staticData, _botData);
         }
     }
 }

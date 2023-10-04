@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Assets.Scripts.Infrastructure.UI.Menu;
 using Infrastructure.Factory;
 using Infrastructure.Hero;
 using Infrastructure.Services;
@@ -18,6 +19,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
     [SerializeField] private float _timerStart;
     [SerializeField] private TMP_Text _textTimer;
     [SerializeField] private Button _buttonPlay;
+    [SerializeField] private BackgroundChanger _backgroundChanger;
 
     private IGameFactory _gameFactory;
     private Fighter _fighter;
@@ -35,6 +37,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
         _textTimer.text = _textTimer.ToString();
         Debug.Log("star timer");
 
+
         // foreach (Player player in PhotonNetwork.PlayerList)
         // {
         //     
@@ -49,22 +52,23 @@ public class TimerStart : MonoBehaviour, IPunObservable
 
     private IEnumerator CreateHero()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
         GetFighters();
+        _backgroundChanger.ChangeBackground();
     }
 
     private void GetFighters()
     {
-        var photonViews = FindObjectsOfType<PhotonView>();
-        foreach (PhotonView view in photonViews)
+        var players = GameObject.FindGameObjectsWithTag("Hero");
+
+        foreach (GameObject player in players)
         {
-            var player = view.Owner;
             if (player != null)
             {
-                var playerObject = view.gameObject;
-                _fighters.Add(playerObject.GetComponent<Fighter>());
+                _fighters.Add(player.GetComponent<Fighter>());
             }
         }
+       
         fighter1 = _fighters[0];
         fighter2 = _fighters[1];
 
@@ -79,6 +83,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
         if (_endRoundCount == 2)
         {
             BothCompleted?.Invoke();
+            _endRoundCount = 0;
         }
     }
 
@@ -88,8 +93,11 @@ public class TimerStart : MonoBehaviour, IPunObservable
         //_buttonPlay.Add(StartBattlePlay);
     }
 
-    public void OnDisable()
+    public void OnDestroy()
     {
+        //BothCompleted -= StartBattle;
+        //fighter1.RoundEnded -= OnRoundEnd;
+        //fighter2.RoundEnded -= OnRoundEnd;
         //_buttonPlay.Remove(StartBattlePlay);
     }
 
@@ -131,6 +139,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
 
         foreach (Fighter fighter in _fighters)
         {
+            
             if (fighter.PlayerData != null)
                 _fighter = fighter;
         }

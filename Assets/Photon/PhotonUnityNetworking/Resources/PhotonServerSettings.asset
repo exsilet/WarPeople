@@ -47,6 +47,13 @@ MonoBehaviour:
   - RPCreateHero
   - OnEndBattle
   - EndBattle
+  - ChangeBackground
+  - SetSprite
+  - ShowAttack
+  - ShowCounter
+  - ShowDefence
+  - SetattackText
+  - SetAttackText
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

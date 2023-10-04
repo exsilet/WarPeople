@@ -18,7 +18,9 @@ namespace Assets.Scripts.Infrastructure.UI.Menu
         [SerializeField] private StartServer _startServer;
 
         private int _currentFighterIndex;
+        private int _randomDataIndex;
         private PlayerStaticData _currentFighter;
+        private PlayerStaticData _botData;
 
         public event UnityAction<PlayerStaticData> PlayerChanged;
 
@@ -28,6 +30,8 @@ namespace Assets.Scripts.Infrastructure.UI.Menu
         {
             _fighterImage.sprite = _fighters[0].Icon;
             _currentFighter = _fighters[0];
+            _randomDataIndex = Random.Range(0, _fighters.Count);
+            _botData = _fighters[_randomDataIndex];
         }        
 
         private void OnEnable()
@@ -41,6 +45,12 @@ namespace Assets.Scripts.Infrastructure.UI.Menu
         {
             _nextFighter.onClick.RemoveListener(ChooseNext);
             _previousFighter.onClick.RemoveListener(ChoosePrevious);
+            PlayerChanged -= _startServer.SetPlayerData;
+        }
+
+        public PlayerStaticData GetRandomData()
+        {           
+            return _botData;
         }
 
         private void ChooseNext()

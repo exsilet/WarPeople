@@ -12,10 +12,11 @@ namespace MultiPlayer
         
         public void OnEnable()
         {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                _photonView.RPC(nameof(FlipRPS), RpcTarget.All);
-            }
+            _photonView.RPC(nameof(FlipRPS), RpcTarget.All);
+            //if (!PhotonNetwork.IsMasterClient)
+            //{
+            //    _photonView.RPC(nameof(FlipRPS), RpcTarget.All);
+            //}
         }
 
         [PunRPC]

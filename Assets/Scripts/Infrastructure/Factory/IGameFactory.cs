@@ -8,6 +8,9 @@ namespace Infrastructure.Factory
     {
         void CreateHubMenu();
         GameObject CreateHero(PlayerTypeId typeId, PlayerStaticData staticData);
+        GameObject CreateHeroOffline(PlayerTypeId typeId, PlayerStaticData staticData);
+        GameObject CreateBot(PlayerTypeId typeId, PlayerStaticData staticData);
+
         GameObject Hero1 { get; }
         GameObject Hero2 { get; }
         //void CreateSpawner(string spawnerId, Vector3 at, PlayerTypeId playerId);

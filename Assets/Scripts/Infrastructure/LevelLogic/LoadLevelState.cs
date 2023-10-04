@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Infrastructure.LevelLogic
 {
-    public class LoadLevelState : IPayloadedState1<string, PlayerStaticData>
+    public class LoadLevelState : IPayloadedState1<string, PlayerStaticData, PlayerStaticData>
     {
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
@@ -16,6 +16,7 @@ namespace Infrastructure.LevelLogic
         private readonly IGameFactory _gameFactory;
         private readonly IStaticDataService _staticData;
         private PlayerStaticData _playerData;
+        private PlayerStaticData _botData;
 
         public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
             IGameFactory gameFactory, IStaticDataService staticData)
@@ -35,6 +36,16 @@ namespace Infrastructure.LevelLogic
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
+        public void EnterThreeParameters(string sceneName, PlayerStaticData playerData, PlayerStaticData botData)
+        {
+            _loadingCurtain.Show();
+            _playerData = playerData;
+            _botData = botData;
+            _sceneLoader.Load(sceneName, OnLoaded);
+            Debug.Log(_playerData + " save data player");
+            Debug.Log(_botData + " save data player2");
+        }
+
         private void OnLoaded()
         {
             InitGameWorld();
@@ -46,7 +57,13 @@ namespace Infrastructure.LevelLogic
 
         private void InitGameWorld()
         {
-            CreateHeroWorld(_playerData);
+            Debug.Log(_botData);
+            if (_botData != null)
+            {
+                CreateOffline(_playerData, _botData);
+            }
+            else
+                CreateHeroWorld(_playerData);
         }
 
         private void CreateHeroWorld(PlayerStaticData playerData)
@@ -55,5 +72,11 @@ namespace Infrastructure.LevelLogic
             
             GameObject hero = _gameFactory.CreateHero(playerData.PlayerTypeId, playerData);
         }
+
+        private void CreateOffline(PlayerStaticData playerData, PlayerStaticData botData)
+        {
+            GameObject hero1 = _gameFactory.CreateHeroOffline(playerData.PlayerTypeId, playerData);
+            GameObject hero2 = _gameFactory.CreateBot(botData.PlayerTypeId, botData);            
+        }        
     }
 }

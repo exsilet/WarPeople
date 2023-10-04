@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5814453757937729256
 Transform:
   m_ObjectHideFlags: 0
@@ -339,8 +339,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4069743283476546100}
   m_HandleRect: {fileID: 6404500422533187062}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.49090755
+  m_Value: 0.9999999
+  m_Size: 0.49090764
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -545,7 +545,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skillsPanel: {fileID: 8408139758147716975}
   _icon: {fileID: 8073617334387558342}
-  _timer: {fileID: 0}
   _skillViewsAttackPrefabs:
   - {fileID: 4478136184228390143}
   - {fileID: 3817912671087348668}
@@ -592,7 +591,7 @@ RectTransform:
   - {fileID: 6244267390544176023}
   - {fileID: 5814453757937729256}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -752,11 +751,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e96c21d0cdb4db9b1913117bee836ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skills:
-  - {fileID: 11400000, guid: cf0959b59c0d2af42afb4bca70c0cd15, type: 2}
-  - {fileID: 11400000, guid: 61f74148b776d894faba8ccb30d33752, type: 2}
-  - {fileID: 11400000, guid: 0aef0f0a19c0cf949809230fab46bf97, type: 2}
-  - {fileID: 11400000, guid: bcbab6c1a94a1664e857fbcdae830cc5, type: 2}
   _skillViewsPrefabs:
   - {fileID: 2280214443156999720}
   - {fileID: 3218981163280806760}

@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 147105745816499042}
   m_Layer: 0
   m_Name: OfficeWorker
-  m_TagString: Untagged
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +127,10 @@ MonoBehaviour:
   _stopSecond: 1.5
   _hidePlayed: 0.3
   _animator: {fileID: -2049082452659816758}
+  _display: {fileID: 0}
+  PlayerData: {fileID: 0}
+  _viewAttacks: []
+  _isRoundEnd: 0
 --- !u!114 &-2049082452659816758
 MonoBehaviour:
   m_ObjectHideFlags: 0

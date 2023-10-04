@@ -37,11 +37,11 @@ namespace Infrastructure.States
             state.Enter(payload);
         }
 
-        public void Enter<TState, TPayload>(TPayload payload1, PlayerStaticData payload2) where TState : class, IPayloadedState1<TPayload, PlayerStaticData>
+        public void Enter<TState, TPayload>(TPayload payload1, PlayerStaticData payload2, PlayerStaticData payload3) where TState : class, IPayloadedState1<TPayload, PlayerStaticData, PlayerStaticData>
         {
             TState state = ChangeState<TState>();
-            state.EnterTwoParameters(payload1, payload2);
-        }
+            state.EnterThreeParameters(payload1, payload2, payload3);            
+        }        
 
         private TState ChangeState<TState>() where TState : class, IExitableState
         {
@@ -51,7 +51,7 @@ namespace Infrastructure.States
             _activeState = state;
             
             return state;
-        }
+        }        
 
         private TState GetState<TState>() where TState : class, IExitableState => 
             _states[typeof(TState)] as TState;

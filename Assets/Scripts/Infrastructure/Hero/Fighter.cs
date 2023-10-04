@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Infrastructure.Hero;
 using Logic;
 using Photon.Pun;
 using StaticData;
@@ -15,13 +16,13 @@ namespace Infrastructure.Hero
         [SerializeField] private float _stopSecond;
         [SerializeField] private float _hidePlayed;
         [SerializeField] private PlayerAnimator _animator;
+        [SerializeField] private SkillDisplay _display;
 
         public PlayerStaticData PlayerData;
         private Inventory _inventory;
         private SkillsPanel _skillsPanel;
-
         private bool _isInitialized;
-        //public List<SkillViewAttack> _viewAttacks = new();
+        public List<SkillViewAttack> _viewAttacks = new();
         private TimerStart _timer;
         private PhotonView _photonView;
 
@@ -46,11 +47,10 @@ namespace Infrastructure.Hero
 
         public void AttackSkill()
         {
-            // foreach (SkillViewAttack data in _inventory._skillViewAttack)
-            // {
-            //     _viewAttacks.Add(data);
-            // }
-        
+            foreach (SkillViewAttack data in _inventory._skillViewAttack)
+            {
+                _viewAttacks.Add(data);
+            }
             _skillsPanel.NoActivePanel();
             _animator.PlayStand();
         
@@ -108,9 +108,11 @@ namespace Infrastructure.Hero
             {
                 case SkillTypeId.Attack:
                     _animator.PlayHit();
+                    _display.ShowAttack();
                     break;
                 case SkillTypeId.Defence:
                     _animator.PlayDefenceAnimation();
+                    _display.ShowDefence();
                     break;
                 case SkillTypeId.Evasion:
                     _animator.PlayEvasionAnimation();
@@ -120,6 +122,7 @@ namespace Infrastructure.Hero
                     break;
                 case SkillTypeId.Counterstrike:
                     _animator.PlayCounterstrikeAnimation();
+                    _display.ShowCounter();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

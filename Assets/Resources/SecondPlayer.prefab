@@ -126,6 +126,10 @@ MonoBehaviour:
   _stopSecond: 1.5
   _hidePlayed: 0.3
   _animator: {fileID: 1234595329428980952}
+  _display: {fileID: 0}
+  PlayerData: {fileID: 0}
+  _viewAttacks: []
+  _isRoundEnd: 0
 --- !u!114 &6145199890204247036
 MonoBehaviour:
   m_ObjectHideFlags: 0
