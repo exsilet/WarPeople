@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 885111596730974176}
   - component: {fileID: 2805533341838671314}
   - component: {fileID: -7945472378953156410}
+  - component: {fileID: 9088405352026288867}
+  - component: {fileID: 7754824787575323185}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -36,7 +38,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2196808183289487504
 SpriteRenderer:
@@ -126,6 +128,8 @@ MonoBehaviour:
   _stopSecond: 1.5
   _hidePlayed: 0.3
   _animator: {fileID: 8131123273717106925}
+  _heroHealth: {fileID: 0}
+  _isRoundEnd: 0
 --- !u!114 &53880159537432506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,3 +221,28 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &9088405352026288867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502521259196843285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8e78fe8cd645b09e87226e65035ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _photonView: {fileID: 0}
+--- !u!114 &7754824787575323185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502521259196843285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50fb89be41a460e940be0e3b13ef2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

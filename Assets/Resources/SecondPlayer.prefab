@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 80882808470153209}
   - component: {fileID: 4854329735139149466}
   - component: {fileID: -6199874850055383141}
+  - component: {fileID: 231017893385207128}
   m_Layer: 0
   m_Name: SecondPlayer
   m_TagString: Untagged
@@ -126,9 +127,7 @@ MonoBehaviour:
   _stopSecond: 1.5
   _hidePlayed: 0.3
   _animator: {fileID: 1234595329428980952}
-  _display: {fileID: 0}
-  PlayerData: {fileID: 0}
-  _viewAttacks: []
+  _skillDisplay: {fileID: 0}
   _isRoundEnd: 0
 --- !u!114 &6145199890204247036
 MonoBehaviour:
@@ -202,9 +201,6 @@ MonoBehaviour:
     Name: Attack
   - Type: 9
     SynchronizeType: 1
-    Name: Stand
-  - Type: 9
-    SynchronizeType: 1
     Name: Protection
   - Type: 9
     SynchronizeType: 1
@@ -215,9 +211,19 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Recharge
-  - Type: 9
-    SynchronizeType: 1
-    Name: StopAnimation
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+--- !u!114 &231017893385207128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8350487481042653903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8e78fe8cd645b09e87226e65035ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _photonView: {fileID: 0}

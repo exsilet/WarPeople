@@ -1,29 +1,22 @@
-﻿using Infrastructure.Hero;
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
 namespace MultiPlayer
 {
+    [RequireComponent(typeof(PhotonView))]
     public class PhotonViewComponents : MonoBehaviour
     {
         [SerializeField] private PhotonView _photonView;
 
-        public PhotonView PhotonView => _photonView;
-        
         public void OnEnable()
         {
-            _photonView.RPC(nameof(FlipRPS), RpcTarget.All);
-            //if (!PhotonNetwork.IsMasterClient)
-            //{
-            //    _photonView.RPC(nameof(FlipRPS), RpcTarget.All);
-            //}
+            _photonView.RPC(nameof(FlipRPS), RpcTarget.All);            
         }
 
         [PunRPC]
         private void FlipRPS()
         {
             GetComponent<SpriteRenderer>().flipX = true;
-            Debug.Log(" Debag 12 ");
         }
     }
 }

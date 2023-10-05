@@ -36,7 +36,7 @@ namespace Infrastructure.Factory
                 Hero1 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner);
 
                 var hud = CreateHudBattle(AssetPath.HudBattlePlayer1Path, staticData);
-                
+
                 Construct(Hero1, staticData, hud);
                 
                 return Hero1;

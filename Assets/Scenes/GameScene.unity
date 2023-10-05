@@ -1366,10 +1366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timerStart: 12
   _textTimer: {fileID: 1929061669}
-  _buttonPlay: {fileID: 97796087}
-  _backgroundChanger: {fileID: 1478263656}
-  fighter1: {fileID: 0}
-  fighter2: {fileID: 0}
+  _buttonPlay: {fileID: 0}
 --- !u!1 &1910832144
 GameObject:
   m_ObjectHideFlags: 0

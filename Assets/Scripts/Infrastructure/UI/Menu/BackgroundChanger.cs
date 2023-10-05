@@ -17,6 +17,7 @@ namespace Assets.Scripts.Infrastructure.UI.Menu
         private void Start()
         {
             _randomNumber = Random.Range(0, _backgroundSprites.Count);
+            ChangeBackground();
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
