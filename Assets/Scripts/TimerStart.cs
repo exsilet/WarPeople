@@ -4,7 +4,6 @@ using System.Globalization;
 using Infrastructure.Factory;
 using Infrastructure.Hero;
 using Photon.Pun;
-using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -26,7 +25,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
 
     public event UnityAction BothCompleted;
 
-    private void Start()
+    public void Start()
     {
         _timer = _timerStart;
         _textTimer.text = _textTimer.ToString();
@@ -34,7 +33,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
 
         StartCoroutine(CreateHero());
         
-        StartCoroutine(StartTime());
+        //StartCoroutine(StartTime());
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -57,7 +56,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
 
     private void GetFighters()
     {
-        var players = GameObject.FindGameObjectsWithTag("Hero");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Hero");
 
         foreach (GameObject player in players)
         {
@@ -81,6 +80,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
         if (_endRoundCount == 2)
         {
             BothCompleted?.Invoke();
+            _endRoundCount = 0;
         }
     }
 

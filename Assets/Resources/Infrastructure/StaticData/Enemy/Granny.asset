@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4407d743404e878d5c5989504b0ae5, type: 3}
+  m_Name: Granny
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: a0d2f9a1514cfc04791e6c422bb73c83, type: 3}
+  Prefab: {fileID: 2359718596721830504, guid: 271469fe4ab950e4b869c10d15f9a411, type: 3}
+  PlayerTypeId: 0
+  SkillDatas:
+  - {fileID: 11400000, guid: babc0acb56be56443a3203d1ce68b091, type: 2}
+  - {fileID: 11400000, guid: 44cf47a5c7a736b49b90c02851ae77ab, type: 2}
+  - {fileID: 11400000, guid: 6654369e88b6cc7458c77dc9190fee57, type: 2}
+  - {fileID: 11400000, guid: 45e6b78342dc51c4c82f9999e7eba447, type: 2}

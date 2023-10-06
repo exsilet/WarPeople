@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Infrastructure.AssetManagement;
+﻿using Infrastructure.AssetManagement;
+using Infrastructure.EnemyBot;
 using Infrastructure.Hero;
 using MultiPlayer;
 using Photon.Pun;
@@ -69,11 +68,11 @@ namespace Infrastructure.Factory
 
         public GameObject CreateBot(PlayerTypeId typeId, PlayerStaticData staticData)
         {
-            Hero2 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner1);
+            Hero2 = CreatePhotonEnemy(typeId, staticData.Prefab.name, AssetPath.Spawner1);
             Hero2.GetComponent<PhotonViewComponents>().enabled = true;
             var hud = CreateHudBattle(AssetPath.HudBattlePlayer2Path, staticData);
-            Construct(Hero2, staticData, hud);
-            hud.gameObject.SetActive(false);
+            ConstructEnemy(Hero2, staticData, hud);
+            hud.GetComponent<Canvas>().enabled = false;
 
             return Hero2;
         }                
@@ -81,9 +80,17 @@ namespace Infrastructure.Factory
         private GameObject CreatePhotonHero(PlayerTypeId typeId, string namePlayer, string spawnerPlayer)
         {
             PlayerStaticData heroData = _staticData.ForPlayer(typeId);
-            GameObject heroPhoton = _assets.InstantiatePhoton(namePlayer, spawnerPlayer);
+            GameObject photonHero = _assets.InstantiatePhoton(namePlayer, spawnerPlayer);
 
-            return heroPhoton;
+            return photonHero;
+        }
+        
+        private GameObject CreatePhotonEnemy(PlayerTypeId typeId, string namePlayer, string spawnerPlayer)
+        {
+            PlayerStaticData forEnemy = _staticData.ForEnemy(typeId);
+            GameObject photonEnemy = _assets.InstantiatePhoton(namePlayer, spawnerPlayer);
+
+            return photonEnemy;
         }
 
         private GameObject CreateHudBattle(string path, PlayerStaticData staticData)
@@ -102,6 +109,13 @@ namespace Infrastructure.Factory
         {
             hero.GetComponent<Fighter>().SetPlayerData(staticData);
             hero.GetComponent<Fighter>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
+                hud.GetComponentInChildren<Inventory>());
+        }
+        
+        private void ConstructEnemy(GameObject hero, PlayerStaticData staticData, GameObject hud)
+        {
+            hero.GetComponent<EnemyFighter>().SetPlayerData(staticData);
+            hero.GetComponent<EnemyFighter>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
                 hud.GetComponentInChildren<Inventory>());
         }
     }

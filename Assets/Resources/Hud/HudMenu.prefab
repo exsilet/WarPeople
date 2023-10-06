@@ -2345,6 +2345,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 52ecd05684b4b164b9fb35539503fd76, type: 2}
   - {fileID: 11400000, guid: 164e68b87f6e3d043954483a25753b36, type: 2}
   - {fileID: 11400000, guid: f5ca9b060ba25e245bc6bff57aaedec5, type: 2}
+  _enemyDatas:
+  - {fileID: 11400000, guid: 6dadeb2a5f4587a45989f89f3bbc90d9, type: 2}
+  - {fileID: 11400000, guid: 9ef40ed5cd121824c8efaadeb3e6e0a2, type: 2}
+  - {fileID: 11400000, guid: f57296eb72ede7c42a35a030403993d0, type: 2}
   _panelUI: {fileID: 2342127673565315625}
   _startServer: {fileID: 9038015138619709290}
 --- !u!1 &8892627403105462348

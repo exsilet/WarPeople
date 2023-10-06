@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4407d743404e878d5c5989504b0ae5, type: 3}
+  m_Name: OfficeWorker
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 98a1593c3625d924e80e4aa99ec3c985, type: 3}
+  Prefab: {fileID: 2359718596721830504, guid: 271469fe4ab950e4b869c10d15f9a411, type: 3}
+  PlayerTypeId: 2
+  SkillDatas:
+  - {fileID: 11400000, guid: f233880e16b3edc42b3140cb880d65bd, type: 2}
+  - {fileID: 11400000, guid: c4a22e61390740646992ba31f00e2528, type: 2}
+  - {fileID: 11400000, guid: 744723b871ca64e4fb18b9aeddec5ef6, type: 2}
+  - {fileID: 11400000, guid: b1795fc896d82384fbd86338ca0110ce, type: 2}

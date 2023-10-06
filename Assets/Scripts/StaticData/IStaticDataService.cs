@@ -5,7 +5,8 @@ namespace StaticData
     public interface IStaticDataService : IService
     {
         public void Load();
-        LevelStaticData ForLevel(string sceneKey);
         public PlayerStaticData ForPlayer(PlayerTypeId typeID);
+        public PlayerStaticData ForEnemy(PlayerTypeId typeID);
+        LevelStaticData ForLevel(string sceneKey);
     }
 }

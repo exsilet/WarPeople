@@ -1,7 +1,4 @@
 ﻿using Photon.Pun;
-using StaticData;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Infrastructure.AssetManagement

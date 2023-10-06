@@ -68,6 +68,7 @@ namespace MultiPlayer
         {
             _playerName = _playerNameText.text;
         }
+        
         public void SetPlayerData(PlayerStaticData staticData)
         {
             _choosedPlayerData = staticData;
@@ -92,7 +93,7 @@ namespace MultiPlayer
                 PhotonNetwork.LocalPlayer.NickName = _playerName;
                 RoomOptions roomOptions = new RoomOptions()
                 {
-                    CleanupCacheOnLeave = false,
+                    //CleanupCacheOnLeave = false,
                     MaxPlayers = _maxPlayer
                 };
 

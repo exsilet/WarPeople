@@ -14,6 +14,7 @@ namespace Assets.Scripts.Infrastructure.UI.Menu
         [SerializeField] private Button _previousFighter;
         [SerializeField] private Button _selectFighter;
         [SerializeField] private List<PlayerStaticData> _fighters;
+        [SerializeField] private List<PlayerStaticData> _enemyDatas;
         [SerializeField] private SkillPanelUI _panelUI;
         [SerializeField] private StartServer _startServer;
 
@@ -30,8 +31,8 @@ namespace Assets.Scripts.Infrastructure.UI.Menu
         {
             _fighterImage.sprite = _fighters[0].Icon;
             _currentFighter = _fighters[0];
-            _randomDataIndex = Random.Range(0, _fighters.Count);
-            _botData = _fighters[_randomDataIndex];
+            _randomDataIndex = Random.Range(0, _enemyDatas.Count);
+            _botData = _enemyDatas[_randomDataIndex];
         }        
 
         private void OnEnable()
