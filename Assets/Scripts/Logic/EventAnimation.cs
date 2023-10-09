@@ -18,29 +18,43 @@ namespace Logic
 
         private PhotonView _photonView;
         private PhotonView _photonView2;
-        private PlayerStaticData _staticData;
-        private SkillStaticData _attackSkill;
+        private PlayerStaticData _playerData;
+        private SkillStaticData _skillData;
+        private Health _enemyHealth;
+        private Health _playerHealth;
+        private Fighter _enemy;
+        private Fighter _player;
 
         private void Start()
         {
             if (!_fighter.PhotonView.IsMine) return;
 
-            _staticData = _fighter.PlayerData;
+            _playerData = _fighter.PlayerData;
             _photonView = GetComponent<PhotonView>();
 
             StartCoroutine(CreateHero());
         }
 
         public void TakeDamage()
-        {
-            if (!_photonView2.IsMine)
+        {           
+            if (_player.CurrentSkill == SkillTypeId.Attack.ToString())
             {
-                if (_photonView2.gameObject.TryGetComponent<Health>(out Health heroHealth))
+                if (_enemy.CurrentSkill == SkillTypeId.Defence.ToString())
                 {
-                    heroHealth.ApplyDamage(_attackSkill.Damage);
+                    _enemyHealth.ApplyDamage(_skillData.Damage / 2);
                 }
+                else if (_enemy.CurrentSkill == SkillTypeId.Counterstrike.ToString())
+                {
+                    _enemyHealth.ApplyDamage(_skillData.Damage / 2);
+                    _playerHealth.ApplyDamage(_skillData.Damage / 2);
+                }
+                else if (_enemy.CurrentSkill == SkillTypeId.Evasion.ToString())
+                {                    
+                }
+                else
+                    _enemyHealth.ApplyDamage(_skillData.Damage);
             }
-        }
+        }               
 
         // public void DamageHero()
         // {
@@ -74,6 +88,11 @@ namespace Logic
         {
             yield return new WaitForSeconds(1f);
             GetFighters();
+            _player = _photonView.GetComponent<Fighter>();
+            _playerHealth = _photonView.GetComponent<HeroHealth>();
+            _enemy = _photonView2.GetComponent<Fighter>();
+            _enemyHealth = _photonView2.GetComponent<HeroHealth>();            
+
             AttackSkill();
         }
 
@@ -101,10 +120,10 @@ namespace Logic
 
         private void AttackSkill()
         {
-            foreach (SkillStaticData data in _staticData.SkillDatas)
+            foreach (SkillStaticData data in _playerData.SkillDatas)
             {
                 if (SkillTypeId.Attack == data.Type)
-                    _attackSkill = data;
+                    _skillData = data;
             }
         }
     }

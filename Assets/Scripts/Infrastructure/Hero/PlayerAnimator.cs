@@ -16,18 +16,20 @@ namespace Infrastructure.Hero
         private static readonly int RechargeHash = Animator.StringToHash("Recharge");
         private static readonly int DieHash = Animator.StringToHash("Died");
         
-        private readonly int _deathStateHash = Animator.StringToHash("Died");
         private readonly int _attackStateHash = Animator.StringToHash("attack");
         private readonly int _protectionStateHash = Animator.StringToHash("Protection");
         private readonly int _dodgeStateHash = Animator.StringToHash("Dodge");
         private readonly int _strongAttackStateHash = Animator.StringToHash("StrongAttack");
         private readonly int _rechargeStateHash = Animator.StringToHash("Recharge");
+        private readonly int _deathStateHash = Animator.StringToHash("Died");
 
+        private string _currentState;
         private Animator _animator;
         private PhotonView _photonView;
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
         public AnimatorState State { get; private set; }
+
 
         private void Awake() =>
             _animator = GetComponent<Animator>();
@@ -54,7 +56,10 @@ namespace Infrastructure.Hero
             => _photonView.RPC(nameof(PlayDeathAnimation), RpcTarget.All);
 
         [PunRPC]
-        private void PlayHit() => _animator.SetTrigger(AttackHash);
+        private void PlayHit()
+        {
+            _animator.SetTrigger(AttackHash);
+        }
         [PunRPC]
         private void PlayDefenceAnimation() => _animator.SetTrigger(ProtectionHash);
         [PunRPC]
@@ -79,39 +84,7 @@ namespace Infrastructure.Hero
 
         private AnimatorState StateFor(int stateHash)
         {
-            AnimatorState state;
-
-            // switch (stateHash)
-            // {
-            //     case _standStateHash:
-            //         state = AnimatorState.Idle;
-            //         return state;
-            //     case _attackStateHash:
-            //         state = AnimatorState.Attack;
-            //         return state;
-            //     case _protectionStateHash:
-            //         state = AnimatorState.Protection;
-            //         return state;
-            //     case _dodgeStateHash:
-            //         state = AnimatorState.Dodge;
-            //         return state;
-            //     case _strongAttackStateHash:
-            //         state = AnimatorState.StrongAttack;
-            //         return state;
-            //     case _rechargeStateHash:
-            //         state = AnimatorState.Recharge;
-            //         return state;
-            //     case _deathStateHash:
-            //         state = AnimatorState.Died;
-            //         return state;
-            //     case _stopStateHash:
-            //         state = AnimatorState.StopAnimation;
-            //         return state;
-            //     default:
-            //         state = AnimatorState.Unknown;
-            //         return state;
-            // }
-            
+            AnimatorState state;                        
             
             if (stateHash == _attackStateHash)
             {

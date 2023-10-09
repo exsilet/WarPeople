@@ -29,7 +29,6 @@ namespace Assets.Scripts.Infrastructure.Hero
         public void SetAttackText()
         {
             _animator.SetTrigger("Counter");
-            Debug.Log("Attack");
         }            
         [PunRPC]
         public void ShowDefence()
