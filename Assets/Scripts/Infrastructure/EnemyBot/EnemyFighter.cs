@@ -7,7 +7,6 @@ using Photon.Pun;
 using StaticData;
 using UnityEngine;
 using UnityEngine.Events;
-using Random = UnityEngine.Random;
 
 namespace Infrastructure.EnemyBot
 {

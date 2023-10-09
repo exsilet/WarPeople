@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using Assets.Scripts.Infrastructure.Hero;
-using Logic;
 using MultiPlayer;
 using Photon.Pun;
 using StaticData;

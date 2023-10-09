@@ -1,10 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Infrastructure.Hero;
 using Photon.Pun;
 using Photon.Realtime;
 using StaticData;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Logic
@@ -89,9 +87,9 @@ namespace Logic
             yield return new WaitForSeconds(1f);
             GetFighters();
             _player = _photonView.GetComponent<Fighter>();
-            _playerHealth = _photonView.GetComponent<HeroHealth>();
+            _playerHealth = _photonView.GetComponent<Health>();
             _enemy = _photonView2.GetComponent<Fighter>();
-            _enemyHealth = _photonView2.GetComponent<HeroHealth>();            
+            _enemyHealth = _photonView2.GetComponent<Health>();            
 
             AttackSkill();
         }
