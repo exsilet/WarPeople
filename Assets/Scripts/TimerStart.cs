@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Infrastructure.EnemyBot;
 using Infrastructure.Factory;
 using Infrastructure.Hero;
 using Photon.Pun;
@@ -19,8 +20,10 @@ public class TimerStart : MonoBehaviour, IPunObservable
     private Fighter _fighter;
     private float _timer;
     private List<Fighter> _fighters = new();
+    private List<EnemyFighter> _enemyFighters = new();
     private Fighter _fighter1;
     private Fighter _fighter2;
+    private EnemyFighter _fighter3;
     private int _endRoundCount;
 
     public event UnityAction BothCompleted;
@@ -33,7 +36,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
 
         StartCoroutine(CreateHero());
         
-        //StartCoroutine(StartTime());
+        StartCoroutine(StartTime());
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -64,13 +67,29 @@ public class TimerStart : MonoBehaviour, IPunObservable
             {
                 _fighters.Add(player.GetComponent<Fighter>());
             }
+
+            if (player.GetComponent<EnemyFighter>() != null)
+            {
+                _enemyFighters.Add(player.GetComponent<EnemyFighter>());
+            }
         }
 
-        _fighter1 = _fighters[0];
-        _fighter2 = _fighters[1];
-
-        _fighter1.RoundEnded += OnRoundEnd;
-        _fighter2.RoundEnded += OnRoundEnd;
+        if (_enemyFighters.Count == 0)
+        {
+            _fighter1 = _fighters[0];
+            _fighter2 = _fighters[1];
+            
+            _fighter1.RoundEnded += OnRoundEnd;
+            _fighter2.RoundEnded += OnRoundEnd;
+        }
+        else
+        {
+            _fighter1 = _fighters[0];
+            _fighter3 = _enemyFighters[0];
+            
+            _fighter1.RoundEnded += OnRoundEnd;
+            _fighter3.RoundEnded += OnRoundEnd;
+        }
     }
 
     private void OnRoundEnd(bool isEnd)
@@ -116,11 +135,23 @@ public class TimerStart : MonoBehaviour, IPunObservable
 
         foreach (Fighter fighter in _fighters)
         {
-            if (fighter.PlayerData != null)
-                _fighter = fighter;
+            if (fighter != null)
+            {
+                if (fighter.PlayerData != null)
+                    _fighter = fighter;
+            }
         }
-        
-        _fighter.AttackSkill();
+
+
+        if (_enemyFighters.Count == 0)
+        {
+            _fighter.AttackSkill();
+        }
+        else
+        {
+            _fighter.AttackSkill();
+            _fighter3.AttackSkill();
+        }
     }    
 
     // private void StartBattlePlay()

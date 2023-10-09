@@ -12,7 +12,7 @@ namespace Logic
     [RequireComponent(typeof(Animator))]
     public class EventAnimation : MonoBehaviour
     {
-        [SerializeField] private HeroHealth _heroHealth;
+        [SerializeField] private Health health;
         [SerializeField] private Fighter _fighter;
         [SerializeField] private float _attackDistance;
 
@@ -35,7 +35,7 @@ namespace Logic
         {
             if (!_photonView2.IsMine)
             {
-                if (_photonView2.gameObject.TryGetComponent<HeroHealth>(out HeroHealth heroHealth))
+                if (_photonView2.gameObject.TryGetComponent<Health>(out Health heroHealth))
                 {
                     heroHealth.ApplyDamage(_attackSkill.Damage);
                 }

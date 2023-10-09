@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b944718d86ad4468b2c7d5a6d9c25a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroHealth: {fileID: 2604308200113356241}
+  health: {fileID: 0}
   _fighter: {fileID: 2394283669933875905}
   _attackDistance: 10
 --- !u!114 &2805533341838671314

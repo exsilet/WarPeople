@@ -7,8 +7,8 @@ public class SkillsPanel : MonoBehaviour
     [SerializeField] private List<SkillView> _skillViewsPrefabs;
     [SerializeField] private Inventory _inventory;
 
+    public List<SkillView> _skillViews = new();
     private List<SkillStaticData> _skills = new();
-    private List<SkillView> _skillViews = new();
     private bool _isStarted;
     private SkillView _skillView;
 

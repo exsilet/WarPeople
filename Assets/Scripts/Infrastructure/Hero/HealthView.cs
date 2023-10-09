@@ -1,25 +1,13 @@
-﻿using System;
-using Photon.Pun;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Infrastructure.Hero
 {
-    public class HeroHealthView : MonoBehaviour
+    public class HealthView : MonoBehaviour
     {
         [SerializeField] private Image[] _emptyIcons;
         [SerializeField] private Sprite _fillIcon;
         [SerializeField] private Sprite _emptyIcon;
-        [SerializeField] private Fighter _fighter;
-
-        private PhotonView _photonView;
-        private HeroHealth _heroHealth;
-
-        private void Start()
-        {
-            _heroHealth = _fighter.gameObject.GetComponent<HeroHealth>();
-            _photonView = _fighter.gameObject.GetComponent<PhotonView>();
-        }
 
         public void IconHealth()
         {

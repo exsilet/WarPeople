@@ -1,15 +1,13 @@
 ﻿using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Infrastructure.Hero
 {
-    [RequireComponent(typeof(Fighter))]
     [RequireComponent(typeof(PlayerAnimator))]
-    public class HeroHealth : MonoBehaviour
+    public class Health : MonoBehaviour
     {
-        [SerializeField] private HeroHealthView _healthView;
+        [SerializeField] private HealthView _healthView;
         
         private int _currentHp;
         private readonly int _maxHp = 10;

@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using StaticData;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Inventory : MonoBehaviour
 {
@@ -37,6 +40,17 @@ public class Inventory : MonoBehaviour
                 AddAttackSkill(i);
                 break;
             }
+        }
+    }
+
+    public void RandomSkill()
+    {
+        var randomSkills = _skillsList.OrderBy(x => Random.Range(0, _skillsList.Count)).ToList();
+        _skillsList = randomSkills;
+
+        for (int i = 0; i < _skillsList.Count; i++)
+        {
+            _skillViewsAttackPrefabs[i].Initialize(_skillsList[i]);
         }
     }
 
