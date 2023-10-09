@@ -63,6 +63,14 @@ MonoBehaviour:
   - SetattackText
   - SetAttackText
   - PlayHit
+  - PlayCounterstrikeAnimation
+  - PlayDeathAnimation
+  - PlayDefenceAnimation
+  - PlayEvasionAnimation
+  - PlaySuperAttackAnimation
+  - ApplyAttack
+  - ApplyDefence
+  - SetCurrentSkill
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
