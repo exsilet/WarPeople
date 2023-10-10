@@ -27,12 +27,12 @@ namespace Infrastructure.Factory
             _assets.Instantiate(AssetPath.HudPath);
         }       
 
-        public GameObject CreateHero(PlayerTypeId typeId, PlayerStaticData staticData)
+        public GameObject CreateHero(PlayerStaticData staticData)
         {
 
             if (PhotonNetwork.IsMasterClient)
             {
-                Hero1 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner);
+                Hero1 = CreatePhotonHero(staticData.Prefab.name, AssetPath.Spawner);
 
                 var hud = CreateHudBattle(AssetPath.HudBattlePlayer1Path, staticData);
 
@@ -42,7 +42,7 @@ namespace Infrastructure.Factory
             }
             else
             {
-                Hero2 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner1);
+                Hero2 = CreatePhotonHero(staticData.Prefab.name, AssetPath.Spawner1);
 
                 Hero2.GetComponent<PhotonViewComponents>().enabled = true;
                 
@@ -56,9 +56,9 @@ namespace Infrastructure.Factory
             // RegisterProgressWatchers(hero);
         }
         
-        public GameObject CreateHeroOffline(PlayerTypeId typeId, PlayerStaticData staticData)
+        public GameObject CreateHeroOffline(PlayerStaticData staticData)
         {
-            Hero1 = CreatePhotonHero(typeId, staticData.Prefab.name, AssetPath.Spawner);
+            Hero1 = CreatePhotonHero(staticData.Prefab.name, AssetPath.Spawner);
 
             var hud = CreateHudBattle(AssetPath.HudBattlePlayer1Path, staticData);
 
@@ -66,9 +66,9 @@ namespace Infrastructure.Factory
             return Hero1;
         }
 
-        public GameObject CreateBot(PlayerTypeId typeId, PlayerStaticData staticData)
+        public GameObject CreateBot(PlayerStaticData staticData)
         {
-            Hero2 = CreatePhotonEnemy(typeId, staticData.Prefab.name, AssetPath.Spawner1);
+            Hero2 = CreatePhotonEnemy(staticData.Prefab.name, AssetPath.Spawner1);
             Hero2.GetComponent<PhotonViewComponents>().enabled = true;
             var hud = CreateHudBattle(AssetPath.HudBattlePlayer2Path, staticData);
             ConstructEnemy(Hero2, staticData, hud);
@@ -77,18 +77,16 @@ namespace Infrastructure.Factory
             return Hero2;
         }                
 
-        private GameObject CreatePhotonHero(PlayerTypeId typeId, string namePlayer, string spawnerPlayer)
+        private GameObject CreatePhotonHero(string namePlayer, string spawnerPlayer)
         {
-            PlayerStaticData heroData = _staticData.ForPlayer(typeId);
             GameObject photonHero = _assets.InstantiatePhoton(namePlayer, spawnerPlayer);
 
             return photonHero;
         }
         
-        private GameObject CreatePhotonEnemy(PlayerTypeId typeId, string namePlayer, string spawnerPlayer)
+        private GameObject CreatePhotonEnemy(string namePlayer, string spawnerPlayer)
         {
-            PlayerStaticData forEnemy = _staticData.ForEnemy(typeId);
-            GameObject photonEnemy = _assets.InstantiatePhoton(namePlayer, spawnerPlayer);
+            GameObject photonEnemy = _assets.InstantiatePhotonRoom(namePlayer, spawnerPlayer);
 
             return photonEnemy;
         }
@@ -114,8 +112,8 @@ namespace Infrastructure.Factory
         
         private void ConstructEnemy(GameObject hero, PlayerStaticData staticData, GameObject hud)
         {
-            hero.GetComponent<EnemyFighter>().SetPlayerData(staticData);
-            hero.GetComponent<EnemyFighter>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
+            hero.GetComponent<BotFighter>().SetPlayerData(staticData);
+            hero.GetComponent<BotFighter>().Construct(hud.GetComponentInChildren<SkillsPanel>(),
                 hud.GetComponentInChildren<Inventory>());
         }
     }

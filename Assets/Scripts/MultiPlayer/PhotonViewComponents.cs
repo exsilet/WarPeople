@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace MultiPlayer
 {
-    [RequireComponent(typeof(PhotonView))]
     public class PhotonViewComponents : MonoBehaviour
     {
         [SerializeField] private PhotonView _photonView;

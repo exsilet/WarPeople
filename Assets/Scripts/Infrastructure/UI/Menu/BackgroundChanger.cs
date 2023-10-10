@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace Assets.Scripts.Infrastructure.UI.Menu
+namespace Infrastructure.UI.Menu
 {
     public class BackgroundChanger : MonoBehaviour, IPunObservable
     {

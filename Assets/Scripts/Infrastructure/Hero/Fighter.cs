@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Assets.Scripts.Infrastructure.Hero;
+using Logic;
 using MultiPlayer;
 using Photon.Pun;
 using StaticData;
@@ -12,7 +13,7 @@ namespace Infrastructure.Hero
     [RequireComponent(typeof(PlayerAnimator))]
     [RequireComponent(typeof(PhotonView))]
     [RequireComponent(typeof(PhotonViewComponents))]
-    public class Fighter : MonoBehaviour
+    public class Fighter : MonoBehaviour, IFighter
     {
         [SerializeField] private float _stopSecond;
         [SerializeField] private float _hidePlayed;
@@ -24,20 +25,18 @@ namespace Infrastructure.Hero
         private bool _isInitialized;
         private PlayerStaticData _playerData;
         private Inventory _inventory;
-        private SkillsPanel _skillsPanel;        
-        private TimerStart _timer;
+        private SkillsPanel _skillsPanel;
         private PhotonView _photonView;
 
         public PlayerStaticData PlayerData => _playerData;
         public Inventory Inventory => _inventory;
         public PhotonView PhotonView => _photonView;
         public string CurrentSkill => _currentSkill;
-        
+
         public event UnityAction<bool> RoundEnded;
 
         private void Start()
         {
-            _timer = FindObjectOfType<TimerStart>();
             _photonView = GetComponent<PhotonView>();
         }
 
@@ -130,6 +129,6 @@ namespace Infrastructure.Hero
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }        
+        }
     }
 }

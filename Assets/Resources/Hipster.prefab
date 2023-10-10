@@ -256,9 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b944718d86ad4468b2c7d5a6d9c25a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroHealth: {fileID: 6615530905086683474}
   _fighter: {fileID: 3012629987822671281}
-  _attackDistance: 10
 --- !u!1001 &973855165684841499
 PrefabInstance:
   m_ObjectHideFlags: 0

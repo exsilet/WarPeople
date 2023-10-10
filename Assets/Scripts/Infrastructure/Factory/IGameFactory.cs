@@ -7,9 +7,9 @@ namespace Infrastructure.Factory
     public interface IGameFactory : IService
     {
         void CreateHubMenu();
-        GameObject CreateHero(PlayerTypeId typeId, PlayerStaticData staticData);
-        GameObject CreateHeroOffline(PlayerTypeId typeId, PlayerStaticData staticData);
-        GameObject CreateBot(PlayerTypeId typeId, PlayerStaticData staticData);
+        GameObject CreateHero(PlayerStaticData staticData);
+        GameObject CreateHeroOffline(PlayerStaticData staticData);
+        GameObject CreateBot(PlayerStaticData staticData);
 
         GameObject Hero1 { get; }
         GameObject Hero2 { get; }

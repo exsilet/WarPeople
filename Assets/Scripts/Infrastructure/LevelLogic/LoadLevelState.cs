@@ -1,8 +1,6 @@
-﻿using System;
-using Infrastructure.Factory;
+﻿using Infrastructure.Factory;
 using Infrastructure.States;
 using Logic;
-using Photon.Pun;
 using StaticData;
 using UnityEngine;
 
@@ -70,13 +68,13 @@ namespace Infrastructure.LevelLogic
         {
             Debug.Log(playerData + " create data players");
             
-            GameObject hero = _gameFactory.CreateHero(playerData.PlayerTypeId, playerData);
+            GameObject hero = _gameFactory.CreateHero(playerData);
         }
 
         private void CreateOffline(PlayerStaticData playerData, PlayerStaticData botData)
         {
-            GameObject hero1 = _gameFactory.CreateHeroOffline(playerData.PlayerTypeId, playerData);
-            GameObject hero2 = _gameFactory.CreateBot(botData.PlayerTypeId, botData);            
+            GameObject hero2 = _gameFactory.CreateBot(botData);
+            GameObject hero1 = _gameFactory.CreateHeroOffline(playerData);
         }        
     }
 }

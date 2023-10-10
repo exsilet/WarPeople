@@ -93,7 +93,7 @@ namespace MultiPlayer
                 PhotonNetwork.LocalPlayer.NickName = _playerName;
                 RoomOptions roomOptions = new RoomOptions()
                 {
-                    //CleanupCacheOnLeave = false,
+                    CleanupCacheOnLeave = false,
                     MaxPlayers = _maxPlayer
                 };
 

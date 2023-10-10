@@ -20,10 +20,10 @@ public class TimerStart : MonoBehaviour, IPunObservable
     private Fighter _fighter;
     private float _timer;
     private List<Fighter> _fighters = new();
-    private List<EnemyFighter> _enemyFighters = new();
+    private List<BotFighter> _enemyFighters = new();
     private Fighter _fighter1;
     private Fighter _fighter2;
-    private EnemyFighter _fighter3;
+    private BotFighter _fighter3;
     private int _endRoundCount;
 
     public event UnityAction BothCompleted;
@@ -63,14 +63,14 @@ public class TimerStart : MonoBehaviour, IPunObservable
 
         foreach (GameObject player in players)
         {
+            if (player.GetComponent<BotFighter>() != null)
+            {
+                _enemyFighters.Add(player.GetComponent<BotFighter>());
+            }
+
             if (player != null)
             {
                 _fighters.Add(player.GetComponent<Fighter>());
-            }
-
-            if (player.GetComponent<EnemyFighter>() != null)
-            {
-                _enemyFighters.Add(player.GetComponent<EnemyFighter>());
             }
         }
 
@@ -84,7 +84,7 @@ public class TimerStart : MonoBehaviour, IPunObservable
         }
         else
         {
-            _fighter1 = _fighters[0];
+            _fighter1 = _fighters[1];
             _fighter3 = _enemyFighters[0];
             
             _fighter1.RoundEnded += OnRoundEnd;

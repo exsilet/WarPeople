@@ -6,7 +6,6 @@ using UnityEngine;
 namespace Infrastructure.Hero
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(PhotonAnimatorView))]
     public class PlayerAnimator : MonoBehaviour, IAnimationStateReader
     {
         private static readonly int AttackHash = Animator.StringToHash("Attack");
