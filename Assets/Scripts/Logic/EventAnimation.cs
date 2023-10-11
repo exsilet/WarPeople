@@ -40,7 +40,7 @@ namespace Logic
                 }
                 else
                 {
-                    CompareSkills(_bot,_enemyHealth, _playerHealth);
+                    CompareSkills(_bot, _enemyHealth, _playerHealth);
                 }
             }
         }
@@ -89,7 +89,6 @@ namespace Logic
                     Debug.Log("target player ");
                     TargetEnemy(player);
                     _enemy = _photonView2.GetComponent<Fighter>();
-                    break;
                 }
             }
         }
@@ -123,7 +122,7 @@ namespace Logic
         //         }
         //     }
         // }
-        
+
         private void AttackSkill()
         {
             foreach (SkillStaticData data in _playerData.SkillDatas)
