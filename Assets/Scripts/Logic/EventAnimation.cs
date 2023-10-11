@@ -32,15 +32,18 @@ namespace Logic
 
         public void TakeDamage()
         {
-            if (_fighter.CurrentSkill == SkillTypeId.Attack.ToString())
+            if (_playerData != null)
             {
-                if (_bot == null)
+                if (_fighter.CurrentSkill == SkillTypeId.Attack.ToString())
                 {
-                    CompareSkills(_enemy, _enemyHealth, _playerHealth);
-                }
-                else
-                {
-                    CompareSkills(_bot, _enemyHealth, _playerHealth);
+                    if (_bot == null)
+                    {
+                        CompareSkills(_enemy, _enemyHealth, _playerHealth);
+                    }
+                    else
+                    {
+                        CompareSkills(_bot, _enemyHealth, _playerHealth);
+                    }
                 }
             }
         }
@@ -83,7 +86,7 @@ namespace Logic
                     break;
                 }
 
-                if (player != null)
+                if (player != _fighter.gameObject)
                 {
                     //GetFighters();
                     Debug.Log("target player ");
